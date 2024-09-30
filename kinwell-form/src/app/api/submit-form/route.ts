@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
     form.append("fullName", fullName);
     form.append("dateOfBirth", dateOfBirth);
     form.append("sex", sex);
-    form.append("submittedAt", new Date().toDateString());
+    form.append("submittedAt", new Date().toISOString());
     form.append("channel", "In Store");
     form.append("pharmacyName", "KinWell Pharmacy");
 
