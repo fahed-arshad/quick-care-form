@@ -87,7 +87,7 @@ export default function ContactForm({
         sex,
       });
       sessionStorage.clear();
-      router.push("/");
+      router.push("/success");
       setLoading(false);
     } catch (error) {
       setLoading(false);
