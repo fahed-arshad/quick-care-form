@@ -121,6 +121,7 @@ export default function Symptoms() {
                 id="duration"
                 type="number"
                 pattern="[0-9]*"
+                inputMode="numeric"
                 fullWidth
                 required
                 endAdornment={
