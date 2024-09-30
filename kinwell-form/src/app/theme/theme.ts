@@ -108,8 +108,18 @@ export const theme = createTheme({
         },
       },
     },
+    MuiMenu: {
+      styleOverrides: {
+        paper: {
+          border: `1px solid ${baseTheme.palette.primary.main}`,
+        },
+      },
+    },
     MuiAutocomplete: {
       styleOverrides: {
+        paper: {
+          border: `1px solid ${baseTheme.palette.primary.main}`,
+        },
         option: {
           alignItems: "flex-start!important",
         },
@@ -118,6 +128,22 @@ export const theme = createTheme({
         },
         focused: {
           alignItems: "flex-start",
+        },
+      },
+    },
+    MuiToggleButton: {
+      styleOverrides: {
+        root: {
+          ":hover": {
+            backgroundColor: baseTheme.palette.secondary.main,
+          },
+          "&.Mui-selected": {
+            backgroundColor: baseTheme.palette.primary.main,
+            color: baseTheme.palette.common.white,
+            ":hover": {
+              backgroundColor: baseTheme.palette.primary.dark,
+            },
+          },
         },
       },
     },
