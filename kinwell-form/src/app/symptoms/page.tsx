@@ -120,6 +120,7 @@ export default function Symptoms() {
               <OutlinedInput
                 id="duration"
                 type="number"
+                pattern="[0-9]*"
                 fullWidth
                 required
                 endAdornment={
