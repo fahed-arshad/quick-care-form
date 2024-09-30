@@ -11,6 +11,7 @@ import {
   ToggleButtonGroup,
   ToggleButton,
   FormHelperText,
+  useTheme,
 } from "@mui/material";
 import ConsultationStepper from "../components/ConsultationStepper";
 import { useForm } from "react-hook-form";
@@ -28,6 +29,7 @@ export interface SymptomData {
 
 export default function Symptoms() {
   const router = useRouter();
+  const theme = useTheme();
   const [alignment, setAlignment] = useState<string | null>(null);
   const [display, setDisplay] = useState<string>("none");
 
@@ -119,7 +121,7 @@ export default function Symptoms() {
               </InputLabel>
               <OutlinedInput
                 id="duration"
-                type="number"
+                type={theme.breakpoints.down("sm") ? "number" : "text"}
                 pattern="[0-9]*"
                 inputMode="numeric"
                 fullWidth
