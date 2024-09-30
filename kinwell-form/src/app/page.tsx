@@ -48,7 +48,7 @@ export default function Home() {
             </Grid>
             <Grid size={{ xs: 12 }}>
               <Typography
-                variant="h2"
+                variant={theme.breakpoints.down("sm") ? "h4" : "h2"}
                 component="h1"
                 color={theme.palette.primary.main}
                 textAlign="center"
