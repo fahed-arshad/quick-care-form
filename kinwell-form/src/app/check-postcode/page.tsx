@@ -122,8 +122,6 @@ export default function CheckPostcode() {
           postcode: formData.postcode,
         }
       );
-      console.log(data);
-      setLoading(false);
       if (data === false) {
         return setError("postcode", {
           type: "validate",
@@ -139,7 +137,7 @@ export default function CheckPostcode() {
       );
       setAddressOptions(addresses.data);
       setDisplay("block");
-      console.log(addresses.data);
+      setLoading(false);
     } catch (error) {}
   };
 
