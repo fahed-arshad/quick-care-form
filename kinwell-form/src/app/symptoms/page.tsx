@@ -85,7 +85,7 @@ export default function Symptoms() {
     router.push("/additional-information");
   };
   return (
-    <Stack alignItems="center" marginTop={5}>
+    <Stack alignItems="center" marginTop={5} marginBottom={10}>
       <ConsultationStepper activeStep={0} />
       <Fade in timeout={300}>
         <form onSubmit={handleSubmit(onSubmit)}>
