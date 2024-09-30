@@ -2,15 +2,10 @@
 import {
   Stack,
   Fade,
-  Box,
   Typography,
   Button,
-  useTheme,
   InputLabel,
   TextField,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
   Autocomplete,
   FormHelperText,
 } from "@mui/material";
@@ -19,15 +14,11 @@ import { Controller, useForm } from "react-hook-form";
 import Grid from "@mui/material/Grid2";
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import { useRouter } from "next/navigation";
-import { DateField, LocalizationProvider } from "@mui/x-date-pickers";
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
-import { format } from "date-fns";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GpSurgery } from "./page";
 import { filterOptions } from "./helpers/filterOptions";
-import { AddressData, AddressDataSession } from "../check-postcode/page";
+import { AddressDataSession } from "../check-postcode/page";
 import { SymptomData } from "../symptoms/page";
 import { PersonalDetailsData } from "../personal-details/page";
 import { LoadingButton } from "@mui/lab";
@@ -43,7 +34,6 @@ export default function ContactForm({
 }: {
   gpSurgeries: Array<GpSurgery>;
 }) {
-  const theme = useTheme();
   const router = useRouter();
   const [selectedGp, setSelectedGp] = useState<GpSurgery | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -101,6 +91,7 @@ export default function ContactForm({
       setLoading(false);
     } catch (error) {
       setLoading(false);
+      console.error(error);
     }
   };
 

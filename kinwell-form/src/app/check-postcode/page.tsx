@@ -11,7 +11,6 @@ import {
   Stack,
   TextField,
   Typography,
-  useTheme,
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
@@ -27,10 +26,6 @@ export const steps = ["Symptoms", "Name", "Contact"];
 interface FormData {
   postcode: string;
   fullAddress: string;
-}
-
-interface PostcodeCheck {
-  message: boolean;
 }
 
 export interface AddressData {
@@ -108,7 +103,6 @@ export default function Home() {
   const [display, setDisplay] = useState<string>("none");
   const [addressOptions, setAddressOptions] = useState<AddressData[]>([]);
   const [open, setOpen] = useState(false);
-  const theme = useTheme();
   const router = useRouter();
   const {
     register,

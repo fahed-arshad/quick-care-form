@@ -2,10 +2,7 @@
 import {
   Stack,
   Fade,
-  Box,
-  Typography,
   Button,
-  useTheme,
   InputLabel,
   TextField,
   RadioGroup,
@@ -29,7 +26,6 @@ export interface PersonalDetailsData {
 }
 
 export default function PersonalDetails() {
-  const theme = useTheme();
   const router = useRouter();
   const { fullName, dateOfBirth, sex }: PersonalDetailsData = JSON.parse(
     sessionStorage.getItem("personalDetails") || "{}"

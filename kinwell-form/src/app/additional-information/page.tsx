@@ -2,20 +2,14 @@
 import {
   Stack,
   Fade,
-  Box,
   Typography,
   Button,
-  useTheme,
   InputLabel,
   TextField,
-  OutlinedInput,
-  InputAdornment,
   ToggleButtonGroup,
   ToggleButton,
-  Input,
   FormHelperText,
 } from "@mui/material";
-import Link from "next/link";
 import ConsultationStepper from "../components/ConsultationStepper";
 import { useForm } from "react-hook-form";
 import Grid from "@mui/material/Grid2";
@@ -29,7 +23,6 @@ interface AdditionalInfoData {
 }
 
 export default function AdditionalInformation() {
-  const theme = useTheme();
   const router = useRouter();
   const [alignment, setAlignment] = useState<string | null>(null);
   const [display, setDisplay] = useState<string>("hidden");

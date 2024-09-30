@@ -2,20 +2,16 @@
 import {
   Stack,
   Fade,
-  Box,
   Typography,
   Button,
-  useTheme,
   InputLabel,
   TextField,
   OutlinedInput,
   InputAdornment,
   ToggleButtonGroup,
   ToggleButton,
-  Input,
   FormHelperText,
 } from "@mui/material";
-import Link from "next/link";
 import ConsultationStepper from "../components/ConsultationStepper";
 import { useForm } from "react-hook-form";
 import Grid from "@mui/material/Grid2";
@@ -31,7 +27,6 @@ export interface SymptomData {
 }
 
 export default function Symptoms() {
-  const theme = useTheme();
   const router = useRouter();
   const [alignment, setAlignment] = useState<string | null>(null);
   const [display, setDisplay] = useState<string>("none");
@@ -83,7 +78,7 @@ export default function Symptoms() {
           <Grid container spacing={2} justifyContent="center" padding={2}>
             <Grid size={{ xs: 12 }}>
               <InputLabel htmlFor="symptoms" required margin="dense">
-                Could you clearly describe the symptoms you're currently
+                Could you clearly describe the symptoms you&apos;re currently
                 experiencing?
               </InputLabel>
               <TextField
