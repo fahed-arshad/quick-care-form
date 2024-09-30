@@ -123,6 +123,7 @@ export default function CheckPostcode() {
         }
       );
       if (data === false) {
+        setLoading(false);
         return setError("postcode", {
           type: "validate",
           message:
