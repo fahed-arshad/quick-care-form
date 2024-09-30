@@ -127,7 +127,7 @@ export default function CheckPostcode() {
         return setError("postcode", {
           type: "validate",
           message:
-            "Sorry! We only offer Pharmacy First services in Scotland. If you have any concerns, KinWell Pharmacy staff are always happy to help.",
+            "Sorry! We only offer these services in Scotland. If you have any concerns, KinWell Pharmacy staff are always happy to help.",
         });
       }
       const addresses = await axios.post(
