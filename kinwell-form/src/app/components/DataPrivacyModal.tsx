@@ -37,7 +37,7 @@ export default function DataPrivacyModal({
     width: "70vw",
     [theme.breakpoints.down("sm")]: {
       width: "100vw",
-      height: "90vh",
+      height: "70vh",
     },
     height: "60vh",
     bgcolor: "background.paper",

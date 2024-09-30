@@ -43,12 +43,12 @@ export default function Home() {
                 src="https://i.imgur.com/ScHdu9S.png"
                 alt="KinWell logo"
                 width={200}
-                sx={{ [theme.breakpoints.down("sm")]: { width: 100 } }}
+                sx={{ [theme.breakpoints.down("sm")]: { width: 70 } }}
               />
             </Grid>
             <Grid size={{ xs: 12 }}>
               <Typography
-                variant={theme.breakpoints.down("sm") ? "h4" : "h2"}
+                variant={theme.breakpoints.down("sm") ? "h5" : "h2"}
                 component="h1"
                 color={theme.palette.primary.main}
                 textAlign="center"
