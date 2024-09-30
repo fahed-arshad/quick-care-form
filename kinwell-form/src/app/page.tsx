@@ -17,8 +17,6 @@ import ConsultationStepper from "./components/ConsultationStepper";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
-export const steps = ["Symptoms", "Name", "Contact"];
-
 export default function Home() {
   const theme = useTheme();
   const router = useRouter();

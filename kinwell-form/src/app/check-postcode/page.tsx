@@ -21,8 +21,6 @@ import { useState } from "react";
 import axios from "axios";
 import { LoadingButton } from "@mui/lab";
 
-export const steps = ["Symptoms", "Name", "Contact"];
-
 interface FormData {
   postcode: string;
   fullAddress: string;
@@ -98,7 +96,7 @@ export interface AddressDataSession {
   DELIVERY_POINT_SUFFIX: string;
 }
 
-export default function Home() {
+export default function CheckPostcode() {
   const [loading, setLoading] = useState<boolean>(false);
   const [display, setDisplay] = useState<string>("none");
   const [addressOptions, setAddressOptions] = useState<AddressData[]>([]);

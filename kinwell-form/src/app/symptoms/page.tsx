@@ -16,7 +16,7 @@ import ConsultationStepper from "../components/ConsultationStepper";
 import { useForm } from "react-hook-form";
 import Grid from "@mui/material/Grid2";
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export interface SymptomData {
@@ -31,22 +31,33 @@ export default function Symptoms() {
   const [alignment, setAlignment] = useState<string | null>(null);
   const [display, setDisplay] = useState<string>("none");
 
-  const existingData: SymptomData = JSON.parse(
-    sessionStorage.getItem("symptoms") || "{}"
-  );
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<SymptomData>({
-    defaultValues: {
-      symptoms: existingData.symptoms ?? null,
-      duration: existingData.duration ?? null,
-      experiencedSymptomsBefore: existingData.experiencedSymptomsBefore ?? null,
-      previousSymptomsDetails: existingData.previousSymptomsDetails ?? null,
-    },
-  });
+  } = useForm<SymptomData>();
+
+  useEffect(() => {
+    const existingData: SymptomData = JSON.parse(
+      sessionStorage.getItem("symptoms") || "{}"
+    );
+
+    if (existingData) {
+      setValue("symptoms", existingData.symptoms);
+      setValue("duration", existingData.duration);
+      setValue(
+        "experiencedSymptomsBefore",
+        existingData.experiencedSymptomsBefore
+      );
+      setAlignment(existingData.experiencedSymptomsBefore);
+      setValue("previousSymptomsDetails", existingData.previousSymptomsDetails);
+      console.log(existingData.experiencedSymptomsBefore);
+      if (existingData.experiencedSymptomsBefore === "Yes") {
+        setDisplay("block");
+      }
+    }
+  }, [setValue]);
 
   const handleAlignment = (
     event: React.MouseEvent<HTMLElement>,
@@ -63,6 +74,9 @@ export default function Symptoms() {
 
   const onSubmit = (formData: SymptomData) => {
     formData.symptoms = formData.symptoms.trim();
+    if (formData.experiencedSymptomsBefore === "No") {
+      formData.previousSymptomsDetails = "";
+    }
     if (formData.previousSymptomsDetails) {
       formData.previousSymptomsDetails =
         formData.previousSymptomsDetails.trim();

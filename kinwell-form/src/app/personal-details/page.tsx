@@ -18,6 +18,7 @@ import { DateField, LocalizationProvider } from "@mui/x-date-pickers";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { format, parse } from "date-fns";
+import { useEffect } from "react";
 
 export interface PersonalDetailsData {
   fullName: string;
@@ -27,25 +28,32 @@ export interface PersonalDetailsData {
 
 export default function PersonalDetails() {
   const router = useRouter();
-  const { fullName, dateOfBirth, sex }: PersonalDetailsData = JSON.parse(
-    sessionStorage.getItem("personalDetails") || "{}"
-  );
 
   const {
     register,
     handleSubmit,
     control,
+    setValue,
+    getValues,
     formState: { errors },
-  } = useForm<PersonalDetailsData>({
-    defaultValues: {
-      fullName: fullName ?? null,
-      dateOfBirth: dateOfBirth
-        ? parse(dateOfBirth, "dd/MM/yyyy", new Date())
-        : null,
-      sex: sex ?? null,
-    },
-  });
+  } = useForm<PersonalDetailsData>();
 
+  useEffect(() => {
+    const existingData: PersonalDetailsData = JSON.parse(
+      sessionStorage.getItem("personalDetails") || "{}"
+    );
+
+    if (existingData) {
+      setValue("fullName", existingData.fullName);
+      if (existingData.dateOfBirth) {
+        setValue(
+          "dateOfBirth",
+          parse(existingData.dateOfBirth, "dd/MM/yyyy", new Date())
+        );
+      }
+      setValue("sex", existingData.sex);
+    }
+  }, [setValue]);
   const onSubmit = (formData: PersonalDetailsData) => {
     if (formData.dateOfBirth) {
       formData.dateOfBirth = format(
@@ -108,7 +116,7 @@ export default function PersonalDetails() {
                 <Controller
                   name="sex"
                   control={control}
-                  defaultValue={sex ?? ""}
+                  defaultValue={getValues("sex") ?? ""}
                   render={({ field }) => (
                     <RadioGroup row {...field}>
                       <FormControlLabel

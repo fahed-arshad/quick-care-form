@@ -14,7 +14,7 @@ import ConsultationStepper from "../components/ConsultationStepper";
 import { useForm } from "react-hook-form";
 import Grid from "@mui/material/Grid2";
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 interface AdditionalInfoData {
@@ -27,20 +27,29 @@ export default function AdditionalInformation() {
   const [alignment, setAlignment] = useState<string | null>(null);
   const [display, setDisplay] = useState<string>("hidden");
 
-  const existingData = JSON.parse(
-    sessionStorage.getItem("additionalInfo") || ""
-  );
-
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<AdditionalInfoData>({
-    defaultValues: {
-      additionalInfo: existingData ?? null,
-    },
-  });
+  } = useForm<AdditionalInfoData>();
+
+  useEffect(() => {
+    const existingData: AdditionalInfoData = JSON.parse(
+      sessionStorage.getItem("additionalInfo") || "{}"
+    );
+
+    if (existingData.additionalInfo) {
+      setValue("additionalInfo", existingData.additionalInfo);
+      setValue("additionalInfoToggle", existingData.additionalInfoToggle);
+      setAlignment("yes");
+      setDisplay("block");
+    } else if (existingData.additionalInfo === "") {
+      setAlignment("no");
+      setValue("additionalInfoToggle", "no");
+      setValue("additionalInfo", "");
+    }
+  }, [setValue]);
 
   const handleAlignment = (
     event: React.MouseEvent<HTMLElement>,
@@ -56,10 +65,13 @@ export default function AdditionalInformation() {
   };
 
   const onSubmit = (formData: AdditionalInfoData) => {
-    sessionStorage.setItem(
-      "additionalInfo",
-      JSON.stringify(formData.additionalInfo)
-    );
+    if (formData.additionalInfo === undefined) {
+      formData.additionalInfo = "";
+    }
+    if (formData.additionalInfoToggle === "no") {
+      formData.additionalInfo = "";
+    }
+    sessionStorage.setItem("additionalInfo", JSON.stringify(formData));
     router.push("/personal-details");
   };
 

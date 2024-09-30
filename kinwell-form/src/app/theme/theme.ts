@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material";
 import type {} from "@mui/lab/themeAugmentation";
-import { dmSans } from "../layout";
+import { dmSans } from "./font";
 
 declare module "@mui/material/styles" {
   interface Palette {

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { pharmaPalInstance } from "../lib/pharma-bal-backend.instance";
+import { AxiosError } from "axios";
 
 interface RequestBody {
   postcode: string;
@@ -20,7 +21,9 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(response.data.results);
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error }, { status: error?.status });
+    if (error instanceof AxiosError) {
+      return NextResponse.json({ error }, { status: error?.status });
+    }
+    return NextResponse.json({ error }, { status: 500 });
   }
 }

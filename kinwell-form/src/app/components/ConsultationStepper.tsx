@@ -7,8 +7,8 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { steps } from "../page";
 import React from "react";
+import { steps } from "./helpers/steps";
 
 export default function ConsultationStepper({
   activeStep,
