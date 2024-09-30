@@ -121,9 +121,7 @@ export default function Symptoms() {
               </InputLabel>
               <OutlinedInput
                 id="duration"
-                type={theme.breakpoints.down("sm") ? "number" : "text"}
                 pattern="[0-9]*"
-                inputMode="numeric"
                 fullWidth
                 required
                 endAdornment={
