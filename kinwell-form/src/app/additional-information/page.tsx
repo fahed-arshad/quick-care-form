@@ -17,7 +17,7 @@ import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-interface AdditionalInfoData {
+export interface AdditionalInfoData {
   additionalInfo: string;
   additionalInfoToggle: string;
 }
