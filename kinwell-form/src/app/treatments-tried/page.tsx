@@ -83,7 +83,7 @@ export default function Symptoms() {
     <Stack alignItems="center" marginTop={5} marginBottom={10}>
       <ConsultationStepper activeStep={0} />
       <Fade in timeout={300}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
           <Grid container spacing={2} justifyContent="center" padding={2}>
             <Grid size={{ xs: 12 }}>
               <InputLabel htmlFor="priorSymptoms" required margin="dense">

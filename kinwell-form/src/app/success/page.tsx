@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import Grid from "@mui/material/Grid2";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Success() {
   const router = useRouter();
@@ -15,6 +16,15 @@ export default function Success() {
     sessionStorage.clear();
     router.push("/");
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      sessionStorage.clear();
+      router.push("/");
+    }, 60000);
+
+    return () => clearTimeout(timer);
+  }, [router]);
 
   return (
     <Stack alignItems="center" marginTop={5}>
