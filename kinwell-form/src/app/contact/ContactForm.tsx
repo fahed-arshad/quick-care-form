@@ -23,6 +23,9 @@ import { SymptomData } from "../symptoms/page";
 import { PersonalDetailsData } from "../personal-details/page";
 import { LoadingButton } from "@mui/lab";
 import { AdditionalInfoData } from "../additional-information/page";
+import { DescribeSymptomData } from "../describe-symptoms/page";
+import { DurationData } from "../duration/page";
+import { TreatmentsTriedData } from "../treatments-tried/page";
 
 interface ContactData {
   gpSurgery: GpSurgery;
@@ -51,12 +54,21 @@ export default function ContactForm({
     const { ADDRESS, POSTCODE, UPRN, UDPRN }: AddressDataSession = JSON.parse(
       sessionStorage.getItem("address") || "{}"
     );
+    const { symptoms }: DescribeSymptomData = JSON.parse(
+      sessionStorage.getItem("symptoms") || "{}"
+    );
+
+    const { duration }: DurationData = JSON.parse(
+      sessionStorage.getItem("duration") || "{}"
+    );
+
     const {
-      symptoms,
-      duration,
       experiencedSymptomsBefore,
       previousSymptomsDetails,
-    }: SymptomData = JSON.parse(sessionStorage.getItem("symptoms") || "{}");
+    }: TreatmentsTriedData = JSON.parse(
+      sessionStorage.getItem("treatmentsTried") || "{}"
+    );
+
     const { additionalInfo }: AdditionalInfoData = JSON.parse(
       sessionStorage.getItem("additionalInfo") || "{}"
     );

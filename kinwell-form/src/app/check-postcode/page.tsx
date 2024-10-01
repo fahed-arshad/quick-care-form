@@ -112,8 +112,9 @@ export default function CheckPostcode() {
   const onSubmit = async (formData: FormData) => {
     try {
       if (formData.fullAddress) {
+        sessionStorage.clear();
         sessionStorage.setItem("address", formData.fullAddress);
-        return router.push("/symptoms");
+        return router.push("/describe-symptoms");
       }
       setLoading(true);
       const { data } = await axios.post(

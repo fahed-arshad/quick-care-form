@@ -28,6 +28,7 @@ export default function Home() {
   };
 
   const onSubmit = () => {
+    sessionStorage.clear();
     router.push("/check-postcode");
   };
 
