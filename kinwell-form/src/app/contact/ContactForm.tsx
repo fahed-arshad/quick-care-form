@@ -51,9 +51,8 @@ export default function ContactForm({
   const onSubmit = async (formData: ContactData) => {
     sessionStorage.setItem("contactDetails", JSON.stringify(formData));
 
-    const { ADDRESS, POSTCODE, UPRN, UDPRN }: AddressDataSession = JSON.parse(
-      sessionStorage.getItem("address") || "{}"
-    );
+    const { ADDRESS, POSTCODE, UPRN, UDPRN, POST_TOWN }: AddressDataSession =
+      JSON.parse(sessionStorage.getItem("address") || "{}");
     const { symptoms }: DescribeSymptomData = JSON.parse(
       sessionStorage.getItem("symptoms") || "{}"
     );
@@ -87,6 +86,7 @@ export default function ContactForm({
         POSTCODE,
         UPRN,
         UDPRN,
+        POST_TOWN,
         symptoms,
         duration,
         experiencedSymptomsBefore,

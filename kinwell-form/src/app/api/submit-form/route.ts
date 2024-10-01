@@ -7,6 +7,7 @@ interface RequestBody {
   POSTCODE: string;
   UPRN: string;
   UDPRN: string;
+  POST_TOWN: string;
   symptoms: string;
   duration: string;
   experiencedSymptomsBefore: string;
@@ -27,6 +28,7 @@ export async function POST(req: NextRequest) {
       POSTCODE,
       UPRN,
       UDPRN,
+      POST_TOWN,
       symptoms,
       duration,
       experiencedSymptomsBefore,
@@ -45,6 +47,7 @@ export async function POST(req: NextRequest) {
     form.append("postcode", POSTCODE);
     form.append("uprn", UPRN);
     form.append("udprn", UDPRN);
+    form.append("city", POST_TOWN);
     form.append("symptoms", symptoms);
     form.append("duration", duration);
     form.append("experiencedSymptomsBefore", experiencedSymptomsBefore);
