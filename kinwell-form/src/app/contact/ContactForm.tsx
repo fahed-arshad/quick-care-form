@@ -19,7 +19,6 @@ import { useEffect, useState } from "react";
 import { GpSurgery } from "./page";
 import { filterOptions } from "./helpers/filterOptions";
 import { AddressDataSession } from "../check-postcode/page";
-import { SymptomData } from "../symptoms/page";
 import { PersonalDetailsData } from "../personal-details/page";
 import { LoadingButton } from "@mui/lab";
 import { AdditionalInfoData } from "../additional-information/page";

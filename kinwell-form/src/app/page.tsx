@@ -50,17 +50,38 @@ export default function Home() {
             <Grid size={{ xs: 12 }}>
               <Typography
                 variant="h3"
-                sx={{ [theme.breakpoints.down("sm")]: { fontSize: "32px" } }}
+                sx={{
+                  color: "#ef5e7b",
+                  [theme.breakpoints.down("sm")]: { fontSize: "32px" },
+                }}
                 component="h1"
                 color={theme.palette.primary.main}
                 textAlign="center"
+                fontWeight="bold"
               >
-                We&apos;re here to offer quick, free medical advice or treatment
-                without the GP wait. 👋
+                <i>Quick</i> Care{" "}
+                {/* <Box
+                  component="img"
+                  src="https://i.imgur.com/ulUrL6v.png"
+                  alt="Quick Care at KinWell logo"
+                  width={30}
+                /> */}
               </Typography>
             </Grid>
             <Grid size={{ xs: 12 }}>
               <Typography fontSize={20} textAlign="center">
+                <b style={{ color: theme.palette.secondary.main }}>Free</b>{" "}
+                medical advice or treatment. Just complete this{" "}
+                <b style={{ color: theme.palette.secondary.main }}>quick</b>{" "}
+                consultation, and we'll get you the{" "}
+                <b style={{ color: theme.palette.secondary.main }}>
+                  care you need!
+                </b>{" "}
+                👋
+              </Typography>
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+              <Typography fontSize={16} textAlign="center">
                 By continuing, you consent to our collection of personal health
                 data to improve your experience.
               </Typography>
@@ -68,7 +89,7 @@ export default function Home() {
             <Grid size={{ xs: 12 }}>
               <Link href="#">
                 <Typography
-                  fontSize={20}
+                  fontSize={16}
                   onClick={() => setModalOpen(true)}
                   textAlign="center"
                   gutterBottom
