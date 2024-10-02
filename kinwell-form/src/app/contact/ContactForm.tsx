@@ -15,7 +15,7 @@ import Grid from "@mui/material/Grid2";
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GpSurgery } from "./page";
 import { filterOptions } from "./helpers/filterOptions";
 import { AddressDataSession } from "../check-postcode/page";
@@ -45,8 +45,23 @@ export default function ContactForm({
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = useForm<ContactData>();
+
+  useEffect(() => {
+    const existingData: ContactData = JSON.parse(
+      sessionStorage.getItem("contactDetails") || "{}"
+    );
+
+    if (existingData) {
+      setValue("mobileNumber", existingData.mobileNumber);
+      if (existingData.email) {
+        setValue("email", existingData.email);
+      }
+      setValue("gpSurgery", existingData.gpSurgery);
+    }
+  }, [setValue]);
 
   const onSubmit = async (formData: ContactData) => {
     sessionStorage.setItem("contactDetails", JSON.stringify(formData));

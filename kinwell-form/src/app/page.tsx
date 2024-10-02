@@ -49,7 +49,8 @@ export default function Home() {
             </Grid>
             <Grid size={{ xs: 12 }}>
               <Typography
-                variant={theme.breakpoints.down("sm") ? "h5" : "h2"}
+                variant="h3"
+                sx={{ [theme.breakpoints.down("sm")]: { fontSize: "32px" } }}
                 component="h1"
                 color={theme.palette.primary.main}
                 textAlign="center"

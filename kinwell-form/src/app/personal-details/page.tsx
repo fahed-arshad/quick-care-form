@@ -8,6 +8,8 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
+  FormHelperText,
+  useTheme,
 } from "@mui/material";
 import ConsultationStepper from "../components/ConsultationStepper";
 import { Controller, useForm } from "react-hook-form";
@@ -28,6 +30,7 @@ export interface PersonalDetailsData {
 
 export default function PersonalDetails() {
   const router = useRouter();
+  const theme = useTheme();
 
   const {
     register,
@@ -115,6 +118,7 @@ export default function PersonalDetails() {
                 </InputLabel>
                 <Controller
                   name="sex"
+                  rules={{ required: true }}
                   control={control}
                   defaultValue={getValues("sex") ?? ""}
                   render={({ field }) => (
@@ -132,6 +136,11 @@ export default function PersonalDetails() {
                     </RadioGroup>
                   )}
                 />
+                {errors.sex?.type === "required" && (
+                  <FormHelperText sx={{ color: theme.palette.error.main }}>
+                    Please select an option
+                  </FormHelperText>
+                )}
               </Grid>
               <Grid
                 container
