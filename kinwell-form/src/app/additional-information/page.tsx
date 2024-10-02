@@ -77,7 +77,7 @@ export default function AdditionalInformation() {
 
   return (
     <Stack alignItems="center" marginTop={5}>
-      <ConsultationStepper activeStep={0} />
+      <ConsultationStepper activeStep={3} useSymptomsSteps />
       <Fade in timeout={300}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={2} justifyContent="center" padding={2}>

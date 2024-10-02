@@ -10,12 +10,23 @@ import {
 import React from "react";
 import { steps } from "./helpers/steps";
 
+const symptomsSteps = [
+  "Symptoms",
+  "Duration",
+  "Treatments",
+  "Allergies/Medication",
+];
+
 export default function ConsultationStepper({
   activeStep,
+  useSymptomsSteps = false, // New optional prop
 }: {
   activeStep: number;
+  useSymptomsSteps?: boolean; // Optional prop type
 }) {
   const theme = useTheme();
+  const stepsToUse = useSymptomsSteps ? symptomsSteps : steps; // Determine which steps to use
+
   return (
     <Box sx={{ width: "100%", position: "sticky", top: 0, zIndex: 1 }}>
       <Stepper
@@ -23,9 +34,9 @@ export default function ConsultationStepper({
         alternativeLabel
         sx={{ marginBottom: 2 }}
       >
-        {steps.map((label) => (
+        {stepsToUse.map((label) => (
           <Step key={label}>
-            <StepLabel>
+            <StepLabel style={{ wordBreak: "break-all" }}>
               <Typography
                 sx={{
                   fontSize: "24px",

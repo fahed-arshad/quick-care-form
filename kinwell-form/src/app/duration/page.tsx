@@ -49,7 +49,7 @@ export default function Symptoms() {
   };
   return (
     <Stack alignItems="center" marginTop={5} marginBottom={10}>
-      <ConsultationStepper activeStep={0} />
+      <ConsultationStepper activeStep={1} useSymptomsSteps />
       <Fade in timeout={300}>
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
           <Grid container spacing={2} justifyContent="center" padding={2}>
@@ -82,9 +82,9 @@ export default function Symptoms() {
                     }
                   },
                 }}
-                placeholder="Enter duration"
                 error={errors.duration ? true : false}
               ></OutlinedInput>
+              <FormHelperText>Enter a number</FormHelperText>
             </Grid>
             <Grid
               container
