@@ -64,6 +64,7 @@ export default function PersonalDetails() {
         "dd/MM/yyyy"
       );
     }
+    formData.fullName = formData.fullName.toUpperCase();
     sessionStorage.setItem("personalDetails", JSON.stringify(formData));
     router.push("/contact");
   };
@@ -86,7 +87,11 @@ export default function PersonalDetails() {
                   {...register("fullName", {
                     required: true,
                   })}
-                  placeholder="Enter full name"
+                  slotProps={{
+                    htmlInput: {
+                      style: { textTransform: "uppercase" },
+                    },
+                  }}
                   error={!!errors.fullName}
                 />
               </Grid>

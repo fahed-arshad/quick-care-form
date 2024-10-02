@@ -169,7 +169,9 @@ export default function ContactForm({
                   />
                 )}
               />
-              <FormHelperText>Start entering in your GP Surgery</FormHelperText>
+              <FormHelperText>
+                Start typing in the name of your GP Surgery
+              </FormHelperText>
             </Grid>
             <Grid size={{ xs: 12 }}>
               <InputLabel htmlFor="phoneNumber" required margin="dense">

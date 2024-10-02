@@ -5,6 +5,7 @@ import {
   Fade,
   FormControl,
   FormHelperText,
+  FormLabel,
   InputLabel,
   MenuItem,
   Select,
@@ -17,8 +18,8 @@ import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import ConsultationStepper from "../components/ConsultationStepper";
-import { useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import axios, { AxiosError } from "axios";
 import { LoadingButton } from "@mui/lab";
 
 interface FormData {
@@ -106,8 +107,13 @@ export default function CheckPostcode() {
     register,
     handleSubmit,
     setError,
+    setValue,
     formState: { errors },
   } = useForm<FormData>();
+
+  useEffect(() => {
+    sessionStorage.clear();
+  }, []);
 
   const onSubmit = async (formData: FormData) => {
     try {
@@ -117,20 +123,39 @@ export default function CheckPostcode() {
         return router.push("/describe-symptoms");
       }
       setLoading(true);
-      const { data } = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/postcode-check`,
-        {
-          postcode: formData.postcode,
+      try {
+        const { data } = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/postcode-check`,
+          {
+            postcode: formData.postcode.trim().toUpperCase(),
+          }
+        );
+        if (data === false) {
+          setLoading(false);
+          return setError("postcode", {
+            type: "validate",
+            message:
+              "Sorry! We only offer these services in Scotland. If you have any concerns, KinWell Pharmacy staff are always happy to help.",
+          });
         }
-      );
-      if (data === false) {
+      } catch (error) {
         setLoading(false);
+        if (error instanceof AxiosError) {
+          if (error.status === 404) {
+            return setError("postcode", {
+              type: "validate",
+              message:
+                "We couldn't find your postcode. 😔 Please make sure you have entered the correct postcode. If you need further assistance, please contact a member of staff who would be happy to help.",
+            });
+          }
+        }
         return setError("postcode", {
           type: "validate",
           message:
-            "Sorry! We only offer these services in Scotland. If you have any concerns, KinWell Pharmacy staff are always happy to help.",
+            "There was an error finding your address. Please contact KinWell staff for further assistance.",
         });
       }
+
       const addresses = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/os-places`,
         {
@@ -184,14 +209,14 @@ export default function CheckPostcode() {
             </Grid>
             {display === "block" && (
               <Grid size={{ xs: 12 }}>
+                <InputLabel htmlFor="address-label" required>
+                  Thanks! Please select your address from the list below
+                </InputLabel>
                 <FormControl fullWidth sx={{ height: "100%" }}>
-                  <InputLabel id="address-label">
-                    Select your address *
-                  </InputLabel>
                   <Select
                     fullWidth
                     labelId="address-label"
-                    label="Select your address *"
+                    placeholder="Select your address"
                     required
                     {...register("fullAddress", { required: true })}
                     sx={{
