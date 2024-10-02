@@ -197,7 +197,7 @@ export default function ContactForm({
             </Grid>
             <Grid size={{ xs: 12 }}>
               <InputLabel htmlFor="email" margin="dense">
-                Email
+                Email (optional)
               </InputLabel>
               <TextField
                 id="email"
