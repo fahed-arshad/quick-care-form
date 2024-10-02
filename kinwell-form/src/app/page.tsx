@@ -52,7 +52,7 @@ export default function Home() {
                 variant="h3"
                 sx={{
                   color: "#ef5e7b",
-                  [theme.breakpoints.down("sm")]: { fontSize: "32px" },
+                  [theme.breakpoints.down("sm")]: { fontSize: "42px" },
                 }}
                 component="h1"
                 color={theme.palette.primary.main}
@@ -73,7 +73,7 @@ export default function Home() {
                 <b style={{ color: theme.palette.secondary.main }}>Free</b>{" "}
                 medical advice or treatment. Just complete this{" "}
                 <b style={{ color: theme.palette.secondary.main }}>quick</b>{" "}
-                consultation, and we'll get you the{" "}
+                consultation, and we&apos;ll get you the{" "}
                 <b style={{ color: theme.palette.secondary.main }}>
                   care you need!
                 </b>{" "}
