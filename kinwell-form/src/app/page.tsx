@@ -70,11 +70,11 @@ export default function Home() {
             </Grid>
             <Grid size={{ xs: 12 }}>
               <Typography fontSize={20} textAlign="center">
-                <b style={{ color: theme.palette.secondary.main }}>Free</b>{" "}
+                <b style={{ color: theme.palette.primary.main }}>Free</b>{" "}
                 medical advice or treatment. Just complete this{" "}
-                <b style={{ color: theme.palette.secondary.main }}>quick</b>{" "}
+                <b style={{ color: theme.palette.primary.main }}>quick</b>{" "}
                 consultation, and we&apos;ll get you the{" "}
-                <b style={{ color: theme.palette.secondary.main }}>
+                <b style={{ color: theme.palette.primary.main }}>
                   care you need!
                 </b>{" "}
                 👋
