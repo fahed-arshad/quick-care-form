@@ -10,7 +10,7 @@ import {
 
 export default function SignUpStepper({ activeStep }: { activeStep: number }) {
   const theme = useTheme();
-  const stepsToUse = ["Personal", "Contact"];
+  const stepsToUse = ["Personal", "Address", "Contact"];
 
   return (
     <Box sx={{ width: "100%", position: "sticky", top: 0, zIndex: 1 }}>
