@@ -63,7 +63,8 @@ export default function Home() {
                   },
                 }}
               >
-                Tap the button below to begin your free consultation! 👇
+                Tap the button below to begin your
+                <br /> free consultation! 👇
               </Typography>
             </Grid>
             <Grid
