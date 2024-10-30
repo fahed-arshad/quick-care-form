@@ -95,6 +95,21 @@ export default function Home() {
                 <b>Click Here to Start Consultation</b>
               </Button>
             </Grid>
+            <Grid
+              size={{ xs: 12 }}
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+            >
+              <Box
+                component="img"
+                src="https://imgur.com/Sp48G3I.png"
+                alt="NHS Scotland logo"
+                width={150}
+                sx={{ [theme.breakpoints.down("sm")]: { width: 150 } }}
+              />
+              <Typography textAlign="center">Providing NHS services</Typography>
+            </Grid>
           </Grid>
         </form>
       </Fade>
