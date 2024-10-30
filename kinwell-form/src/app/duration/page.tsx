@@ -60,7 +60,7 @@ export default function Symptoms() {
           >
             <Grid size={{ xs: 12 }}>
               <InputLabel htmlFor="duration" required margin="dense">
-                How many days have you been experiencing these symptoms for?
+                How many days have you been experiencing these symptoms for? 📆
               </InputLabel>
               <OutlinedInput
                 id="duration"

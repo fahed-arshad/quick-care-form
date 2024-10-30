@@ -177,7 +177,7 @@ export default function CheckPostcode() {
             <Grid size={{ xs: 12 }}>
               <InputLabel htmlFor="postcode" required margin="dense">
                 To find out if you&apos;re eligible for these NHS services,
-                please provide your postcode.
+                please provide your postcode. 📮
               </InputLabel>
               <TextField
                 id="postcode"
@@ -218,7 +218,7 @@ export default function CheckPostcode() {
             {display === "block" && (
               <Grid size={{ xs: 12 }}>
                 <InputLabel htmlFor="address-label" required>
-                  Thanks! Please select your address from the list below
+                  Thanks! 😊 Please select your address from the list below 👇
                 </InputLabel>
                 <FormControl fullWidth sx={{ height: "100%" }}>
                   <Select

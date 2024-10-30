@@ -1,5 +1,5 @@
 "use client";
-import { Stack, Fade, Button, Typography } from "@mui/material";
+import { Stack, Fade, Button, Typography, Box, useTheme } from "@mui/material";
 import ConsultationStepper from "../components/ConsultationStepper";
 import { useForm } from "react-hook-form";
 import Grid from "@mui/material/Grid2";
@@ -9,6 +9,7 @@ import { useEffect } from "react";
 
 export default function Success() {
   const router = useRouter();
+  const theme = useTheme();
 
   const { handleSubmit } = useForm();
 
@@ -31,12 +32,30 @@ export default function Success() {
       <ConsultationStepper activeStep={3} />
       <Fade in timeout={300}>
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
-          <Grid container spacing={5} justifyContent="center" padding={2}>
-            <Grid size={{ xs: 12 }} textAlign="center"></Grid>
+          <Grid
+            container
+            spacing={5}
+            justifyContent="center"
+            sx={{ padding: { xs: 2, sm: 6 } }}
+          >
+            <Grid size={{ xs: 12 }} display="flex" justifyContent="center">
+              <Box
+                component="img"
+                src="https://i.imgur.com/QRVEoaF.png"
+                alt="KinWell logo"
+                width={300}
+                sx={{ [theme.breakpoints.down("sm")]: { width: 200 } }}
+              />
+            </Grid>
             <Grid size={{ xs: 12 }}>
               <Typography textAlign="center" variant="h4" component="h2">
-                Thanks! Pharmacy staff will now assess your symptoms and call
-                your name when ready.
+                Thanks for using <i>Quick</i> Care! 😊
+              </Typography>
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+              <Typography textAlign="center" variant="h4" component="h2">
+                The Pharmacist will now assess your symptoms and call your name
+                when ready. 📣
               </Typography>
             </Grid>
             <Grid

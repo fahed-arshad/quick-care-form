@@ -91,7 +91,7 @@ export default function Symptoms() {
           >
             <Grid size={{ xs: 12 }}>
               <InputLabel htmlFor="priorSymptoms" required margin="dense">
-                Have you tried any treatment for these symptoms yet?
+                Have you tried any treatment for these symptoms yet? 💊
               </InputLabel>
               <ToggleButtonGroup
                 id="priorSymptoms"

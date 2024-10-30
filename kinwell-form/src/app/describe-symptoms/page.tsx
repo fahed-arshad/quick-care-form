@@ -62,7 +62,7 @@ export default function Symptoms() {
             <Grid size={{ xs: 12 }}>
               <InputLabel htmlFor="symptoms" required margin="dense">
                 Could you clearly describe the symptoms you&apos;re currently
-                experiencing?
+                experiencing? 🤒
               </InputLabel>
               <TextField
                 id="symptoms"

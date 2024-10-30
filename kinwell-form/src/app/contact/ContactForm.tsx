@@ -127,7 +127,12 @@ export default function ContactForm({
       <ConsultationStepper activeStep={2} />
       <Fade in timeout={300}>
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
-          <Grid container spacing={2} justifyContent="center" padding={6}>
+          <Grid
+            container
+            spacing={2}
+            justifyContent="center"
+            sx={{ padding: { xs: 2, sm: 6 } }}
+          >
             <Grid size={{ xs: 12 }}>
               <InputLabel htmlFor="surgeryName" required margin="dense">
                 GP Surgery
@@ -175,7 +180,7 @@ export default function ContactForm({
                 )}
               />
               <FormHelperText>
-                ⓘ Start typing in the name of your GP Surgery
+                ⓘ Start typing in the name of your GP Surgery ☝️
               </FormHelperText>
             </Grid>
             <Grid size={{ xs: 12 }}>

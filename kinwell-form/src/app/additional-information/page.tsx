@@ -88,7 +88,7 @@ export default function AdditionalInformation() {
                 margin="dense"
               >
                 Do you have any existing conditions, any medications for those
-                existing conditions and any allergies to medication?
+                existing conditions and any allergies to medication? 🤧
               </InputLabel>
               <ToggleButtonGroup
                 id="additionalInfoToggle"
