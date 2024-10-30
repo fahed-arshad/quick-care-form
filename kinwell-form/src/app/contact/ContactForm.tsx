@@ -127,7 +127,7 @@ export default function ContactForm({
       <ConsultationStepper activeStep={2} />
       <Fade in timeout={300}>
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
-          <Grid container spacing={2} justifyContent="center" padding={2}>
+          <Grid container spacing={2} justifyContent="center" padding={6}>
             <Grid size={{ xs: 12 }}>
               <InputLabel htmlFor="surgeryName" required margin="dense">
                 GP Surgery
@@ -156,8 +156,14 @@ export default function ContactForm({
                       const { key, ...optionProps } = props;
                       return (
                         <Stack key={option.id} component="li" {...optionProps}>
-                          <Typography>{option.gpPracticeName}</Typography>
-                          <Typography variant="body2" color="textSecondary">
+                          <Typography fontSize={20}>
+                            {option.gpPracticeName}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            color="textSecondary"
+                            fontSize={16}
+                          >
                             {option.addressLine4
                               ? option.addressLine4
                               : option.addressLine3}
@@ -210,6 +216,7 @@ export default function ContactForm({
               size={{ xs: 12 }}
               spacing={2}
               direction={{ xs: "row-reverse" }}
+              marginTop={3}
             >
               <Grid size={{ md: 6, xs: 12 }}>
                 <LoadingButton

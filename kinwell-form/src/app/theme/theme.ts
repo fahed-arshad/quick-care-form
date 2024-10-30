@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material";
 import type {} from "@mui/lab/themeAugmentation";
-import { dmSans } from "./font";
+import { dmSans, saira } from "./font";
 
 declare module "@mui/material/styles" {
   interface Palette {
@@ -50,15 +50,17 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           fontSize: "24px",
+          backgroundColor: "white",
         },
       },
     },
     MuiInputLabel: {
       styleOverrides: {
         root: {
-          fontSize: "24px",
+          fontSize: "22px",
           whiteSpace: "normal",
           fontWeight: "bold",
+          marginBottom: 24,
           color: baseTheme.palette.text.primary,
         },
       },
@@ -68,19 +70,13 @@ export const theme = createTheme({
         root: {
           fontSize: "24px",
           textTransform: "none",
+          borderRadius: "100px",
           ":hover": {
             backgroundColor: baseTheme.palette.secondary.main,
           },
           ":active": {
             backgroundColor: baseTheme.palette.primary.main,
           },
-        },
-      },
-    },
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          backgroundColor: "white",
         },
       },
     },
@@ -134,6 +130,11 @@ export const theme = createTheme({
     MuiToggleButton: {
       styleOverrides: {
         root: {
+          backgroundColor: "white",
+          borderColor: baseTheme.palette.primary.main,
+          color: baseTheme.palette.primary.main,
+          fontWeight: "bold",
+          fontSize: 22,
           ":hover": {
             backgroundColor: baseTheme.palette.secondary.main,
           },
@@ -144,6 +145,22 @@ export const theme = createTheme({
               backgroundColor: baseTheme.palette.primary.dark,
             },
           },
+        },
+      },
+    },
+    MuiToggleButtonGroup: {
+      styleOverrides: {
+        root: {
+          borderColor: baseTheme.palette.primary.main,
+        },
+        firstButton: {
+          borderTopLeftRadius: "100px",
+          borderBottomLeftRadius: "100px",
+        },
+        lastButton: {
+          borderLeft: `1px solid ${baseTheme.palette.primary.main}`,
+          borderTopRightRadius: "100px",
+          borderBottomRightRadius: "100px",
         },
       },
     },

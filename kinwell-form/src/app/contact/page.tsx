@@ -19,7 +19,15 @@ export default async function OnboardFormPage() {
     addressLine4: "Select this if you don't know your GP surgery",
   };
 
-  const gpSurgeriesWithManualOptions = [unknownGpSurgery, ...gpSurgeries];
+  // Sort surgeries: unknown first, then Nairn, then the rest alphabetically
+  const gpSurgeriesWithManualOptions = [
+    unknownGpSurgery,
+    ...gpSurgeries.sort((a, b) => {
+      if (a.gpPracticeName === "Nairn Healthcare Group") return -1;
+      if (b.gpPracticeName === "Nairn Healthcare Group") return 1;
+      return a.gpPracticeName.localeCompare(b.gpPracticeName);
+    }),
+  ];
 
   return <ContactForm gpSurgeries={gpSurgeriesWithManualOptions} />;
 }

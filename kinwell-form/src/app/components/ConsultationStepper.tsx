@@ -10,12 +10,7 @@ import {
 import React from "react";
 import { steps } from "./helpers/steps";
 
-const symptomsSteps = [
-  "Symptoms",
-  "Duration",
-  "Treatments",
-  "Allergies/Medication",
-];
+const symptomsSteps = ["Symptoms", "Duration", "Treatments", "Allergies"];
 
 export default function ConsultationStepper({
   activeStep,

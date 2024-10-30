@@ -75,7 +75,7 @@ export default function PersonalDetails() {
         <ConsultationStepper activeStep={1} />
         <Fade in timeout={300}>
           <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
-            <Grid container spacing={2} justifyContent="center" padding={2}>
+            <Grid container spacing={2} justifyContent="center" padding={6}>
               <Grid size={{ xs: 12 }}>
                 <InputLabel htmlFor="fullName" required margin="dense">
                   Full Name
@@ -152,6 +152,7 @@ export default function PersonalDetails() {
                 size={{ xs: 12 }}
                 spacing={2}
                 direction={{ xs: "row-reverse" }}
+                marginTop={3}
               >
                 <Grid size={{ md: 6, xs: 12 }}>
                   <Button

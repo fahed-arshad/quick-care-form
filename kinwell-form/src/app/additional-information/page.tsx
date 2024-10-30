@@ -80,7 +80,7 @@ export default function AdditionalInformation() {
       <ConsultationStepper activeStep={3} useSymptomsSteps />
       <Fade in timeout={300}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Grid container spacing={2} justifyContent="center" padding={2}>
+          <Grid container spacing={2} justifyContent="center" padding={6}>
             <Grid size={{ xs: 12 }}>
               <InputLabel
                 htmlFor="additionalInfoToggle"
@@ -106,9 +106,17 @@ export default function AdditionalInformation() {
               </ToggleButtonGroup>
               {errors.additionalInfoToggle ? (
                 <FormHelperText>
-                  <Typography color="error">Please select an option</Typography>
+                  <Typography color="error" marginTop={1}>
+                    ⓘ Please select an option
+                  </Typography>
                 </FormHelperText>
-              ) : null}
+              ) : (
+                <FormHelperText>
+                  <Typography marginTop={1}>
+                    ⓘ Tap to select an option
+                  </Typography>
+                </FormHelperText>
+              )}
             </Grid>
             {display === "block" && (
               <Grid size={{ xs: 12 }}>
@@ -127,6 +135,7 @@ export default function AdditionalInformation() {
               size={{ xs: 12 }}
               spacing={2}
               direction={{ xs: "row-reverse" }}
+              marginTop={3}
             >
               <Grid size={{ md: 6, xs: 12 }}>
                 <Button

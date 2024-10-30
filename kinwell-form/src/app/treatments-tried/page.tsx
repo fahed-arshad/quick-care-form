@@ -6,11 +6,10 @@ import {
   Button,
   InputLabel,
   TextField,
-  OutlinedInput,
-  InputAdornment,
   ToggleButtonGroup,
   ToggleButton,
   FormHelperText,
+  useTheme,
 } from "@mui/material";
 import ConsultationStepper from "../components/ConsultationStepper";
 import { useForm } from "react-hook-form";
@@ -84,7 +83,12 @@ export default function Symptoms() {
       <ConsultationStepper activeStep={2} useSymptomsSteps />
       <Fade in timeout={300}>
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
-          <Grid container spacing={2} justifyContent="center" padding={2}>
+          <Grid
+            container
+            spacing={2}
+            justifyContent="center"
+            sx={{ padding: { xs: 2, sm: 6 } }}
+          >
             <Grid size={{ xs: 12 }}>
               <InputLabel htmlFor="priorSymptoms" required margin="dense">
                 Have you tried any treatment for these symptoms yet?
@@ -101,13 +105,23 @@ export default function Symptoms() {
                 aria-required
               >
                 <ToggleButton value="Yes">Yes</ToggleButton>
-                <ToggleButton value="No">No</ToggleButton>
+                <ToggleButton value="No" sx={{ borderLeft: "1px solid black" }}>
+                  No
+                </ToggleButton>
               </ToggleButtonGroup>
               {errors.experiencedSymptomsBefore ? (
                 <FormHelperText>
-                  <Typography color="error">Please select an option</Typography>
+                  <Typography color="error" marginTop={1}>
+                    ⓘ Please select an option
+                  </Typography>
                 </FormHelperText>
-              ) : null}
+              ) : (
+                <FormHelperText>
+                  <Typography marginTop={1}>
+                    ⓘ Tap to select an option
+                  </Typography>
+                </FormHelperText>
+              )}
             </Grid>
             {display === "block" && (
               <Grid size={{ xs: 12 }}>
@@ -126,6 +140,7 @@ export default function Symptoms() {
               size={{ xs: 12 }}
               spacing={2}
               direction={{ xs: "row-reverse" }}
+              marginTop={3}
             >
               <Grid size={{ md: 6, xs: 12 }}>
                 <Button

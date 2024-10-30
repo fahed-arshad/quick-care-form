@@ -52,7 +52,12 @@ export default function Symptoms() {
       <ConsultationStepper activeStep={1} useSymptomsSteps />
       <Fade in timeout={300}>
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
-          <Grid container spacing={2} justifyContent="center" padding={2}>
+          <Grid
+            container
+            spacing={2}
+            justifyContent="center"
+            sx={{ padding: { xs: 2, sm: 6 } }}
+          >
             <Grid size={{ xs: 12 }}>
               <InputLabel htmlFor="duration" required margin="dense">
                 How many days have you been experiencing these symptoms for?
@@ -84,13 +89,14 @@ export default function Symptoms() {
                 }}
                 error={errors.duration ? true : false}
               ></OutlinedInput>
-              <FormHelperText>Enter a number</FormHelperText>
+              <FormHelperText>ⓘ Enter a number</FormHelperText>
             </Grid>
             <Grid
               container
               size={{ xs: 12 }}
               spacing={2}
               direction={{ xs: "row-reverse" }}
+              marginTop={3}
             >
               <Grid size={{ md: 6, xs: 12 }}>
                 <Button

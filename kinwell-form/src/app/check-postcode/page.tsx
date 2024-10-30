@@ -173,7 +173,7 @@ export default function CheckPostcode() {
       <ConsultationStepper activeStep={0} />
       <Fade in timeout={300}>
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
-          <Grid container spacing={2} padding={2}>
+          <Grid container spacing={2} sx={{ padding: { xs: 2, sm: 6 } }}>
             <Grid size={{ xs: 12 }}>
               <InputLabel htmlFor="postcode" required margin="dense">
                 To find out if you&apos;re eligible for these NHS services,
@@ -185,7 +185,9 @@ export default function CheckPostcode() {
                 required
                 slotProps={{
                   htmlInput: {
-                    style: { textTransform: "uppercase" },
+                    style: {
+                      textTransform: "uppercase",
+                    },
                   },
                 }}
                 {...register("postcode", {
@@ -193,7 +195,7 @@ export default function CheckPostcode() {
                   pattern:
                     /^\s*(([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z]))))\s?[0-9][A-Za-z]{2}))\s*$/,
                 })}
-                placeholder="Enter postcode (e.g. IV12 4AG)"
+                placeholder="Postcode"
                 error={errors.postcode ? true : false}
                 onChange={() => {
                   setDisplay("none");
@@ -206,6 +208,12 @@ export default function CheckPostcode() {
                     : null
                 }
               ></TextField>
+              <style jsx global>{`
+                /* Capitalize only the placeholder */
+                #postcode::placeholder {
+                  text-transform: none;
+                }
+              `}</style>
             </Grid>
             {display === "block" && (
               <Grid size={{ xs: 12 }}>
@@ -233,7 +241,11 @@ export default function CheckPostcode() {
                       <MenuItem
                         key={index}
                         value={JSON.stringify(address.DPA)}
-                        sx={{ whiteSpace: "normal", fontSize: "24px" }}
+                        sx={{
+                          whiteSpace: "normal",
+                          padding: "20px",
+                          fontSize: "24px",
+                        }}
                       >
                         {address?.DPA?.ADDRESS}
                       </MenuItem>
@@ -254,6 +266,7 @@ export default function CheckPostcode() {
               container
               size={{ xs: 12 }}
               spacing={2}
+              marginTop={3}
               direction={{ xs: "row-reverse" }}
             >
               <Grid size={{ md: 6, xs: 12 }}>

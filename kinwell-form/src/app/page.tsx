@@ -37,73 +37,59 @@ export default function Home() {
       <ConsultationStepper activeStep={0} />
       <Fade in timeout={300}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Grid container spacing={2} justifyContent="center" padding={2}>
+          <Grid
+            container
+            spacing={5}
+            justifyContent="center"
+            sx={{ padding: { xs: 2, sm: 6 } }}
+            marginTop={10}
+          >
             <Grid size={{ xs: 12 }} display="flex" justifyContent="center">
               <Box
                 component="img"
-                src="https://i.imgur.com/ScHdu9S.png"
+                src="https://i.imgur.com/QRVEoaF.png"
                 alt="KinWell logo"
-                width={200}
-                sx={{ [theme.breakpoints.down("sm")]: { width: 70 } }}
+                width={300}
+                sx={{ [theme.breakpoints.down("sm")]: { width: 200 } }}
               />
             </Grid>
             <Grid size={{ xs: 12 }}>
               <Typography
-                variant="h3"
-                sx={{
-                  color: "#ef5e7b",
-                  [theme.breakpoints.down("sm")]: { fontSize: "42px" },
-                }}
-                component="h1"
-                color={theme.palette.primary.main}
+                fontSize={32}
                 textAlign="center"
-                fontWeight="bold"
+                sx={{
+                  [theme.breakpoints.down("sm")]: {
+                    fontSize: 24,
+                  },
+                }}
               >
-                <i>Quick</i> Care{" "}
-                {/* <Box
-                  component="img"
-                  src="https://i.imgur.com/ulUrL6v.png"
-                  alt="Quick Care at KinWell logo"
-                  width={30}
-                /> */}
+                Tap the button below to begin your free consultation! 👇
               </Typography>
             </Grid>
-            <Grid size={{ xs: 12 }}>
-              <Typography fontSize={20} textAlign="center">
-                <b style={{ color: theme.palette.primary.main }}>Free</b>{" "}
-                medical advice or treatment. Just complete this{" "}
-                <b style={{ color: theme.palette.primary.main }}>quick</b>{" "}
-                consultation, and we&apos;ll get you the{" "}
-                <b style={{ color: theme.palette.primary.main }}>
-                  care you need!
-                </b>{" "}
-                👋
-              </Typography>
-            </Grid>
-            <Grid size={{ xs: 12 }}>
-              <Typography fontSize={16} textAlign="center">
-                By continuing, you consent to our collection of personal health
-                data to improve your experience.
-              </Typography>
-            </Grid>
-            <Grid size={{ xs: 12 }}>
-              <Link href="#">
-                <Typography
-                  fontSize={16}
-                  onClick={() => setModalOpen(true)}
-                  textAlign="center"
-                  gutterBottom
-                >
-                  Click here to learn more.
-                </Typography>
-              </Link>
-            </Grid>
-            <Grid size={{ xs: 12 }}>
+            <Grid
+              size={{ xs: 12 }}
+              sx={{
+                marginLeft: 7,
+                marginRight: 7,
+                [theme.breakpoints.down("sm")]: {
+                  margin: 0,
+                },
+              }}
+            >
               <Button
                 variant="contained"
                 endIcon={<EastRoundedIcon />}
                 fullWidth
-                sx={{ fontSize: 24 }}
+                sx={{
+                  fontSize: 24,
+                  paddingTop: 3,
+                  paddingBottom: 3,
+                  [theme.breakpoints.down("sm")]: {
+                    fontSize: 20,
+                    paddingTop: 2,
+                    paddingBottom: 2,
+                  },
+                }}
                 type="submit"
               >
                 <b>Click Here to Start Consultation</b>

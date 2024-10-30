@@ -11,7 +11,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={dmSans.className}>
+      <body className={dmSans.className} style={{ backgroundColor: "#edf1ed" }}>
         <ThemeProvider theme={theme}>{children}</ThemeProvider>
       </body>
     </html>
