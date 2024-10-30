@@ -87,11 +87,6 @@ export default function PersonalDetails() {
                   {...register("fullName", {
                     required: true,
                   })}
-                  slotProps={{
-                    htmlInput: {
-                      style: { textTransform: "uppercase" },
-                    },
-                  }}
                   error={!!errors.fullName}
                 />
               </Grid>

@@ -175,7 +175,7 @@ export default function ContactForm({
                 )}
               />
               <FormHelperText>
-                Start typing in the name of your GP Surgery
+                ⓘ Start typing in the name of your GP Surgery
               </FormHelperText>
             </Grid>
             <Grid size={{ xs: 12 }}>
@@ -195,7 +195,7 @@ export default function ContactForm({
                 error={errors.mobileNumber?.type === "pattern" ? true : false}
                 helperText={
                   errors.mobileNumber?.type === "pattern"
-                    ? "Please provide a valid UK phone number"
+                    ? "ⓘ Please provide a valid UK phone number"
                     : null
                 }
               />

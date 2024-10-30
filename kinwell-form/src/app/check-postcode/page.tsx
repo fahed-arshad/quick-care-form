@@ -205,7 +205,7 @@ export default function CheckPostcode() {
                     ? "Please provide a valid UK postcode"
                     : errors.postcode?.type === "validate"
                     ? errors.postcode.message
-                    : null
+                    : "ⓘ This is the postcode that is registered with your GP"
                 }
               ></TextField>
               <style jsx global>{`
