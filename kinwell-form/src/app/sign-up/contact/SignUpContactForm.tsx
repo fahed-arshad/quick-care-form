@@ -102,6 +102,7 @@ export default function SignUpContactForm({
           referral,
           pharmacyName: "KinWell Pharmacy",
           receiveHealthcareUpdates: true,
+          newSignUp: true,
         }
       );
       sessionStorage.clear();

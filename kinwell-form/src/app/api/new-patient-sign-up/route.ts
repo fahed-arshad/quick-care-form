@@ -20,6 +20,7 @@ interface RequestBody {
   nominatedPharmacy: boolean;
   receiveHealthcareUpdates: boolean;
   referral: string;
+  newSignUp: boolean;
 }
 
 export async function POST(req: NextRequest) {
