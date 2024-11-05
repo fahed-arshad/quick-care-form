@@ -1,11 +1,10 @@
-import { GpSurgery } from "@/app/contact/page";
 import { NextRequest, NextResponse } from "next/server";
 import { pharmaPalInstance } from "../lib/pharma-bal-backend.instance";
 import { AxiosError } from "axios";
 
 interface RequestBody {
   fullName: string;
-  dateOfBirth: string;
+  dateOfBirth: Date;
   email?: string;
   mobileNumber?: string;
   pharmacyName: string;
