@@ -1,6 +1,6 @@
-import { GpSurgery } from "@/app/contact/page";
 import { NextRequest, NextResponse } from "next/server";
 import { pharmaPalInstance } from "../lib/pharma-bal-backend.instance";
+import { AxiosError } from "axios";
 
 interface RequestBody {
   fullName: string;
@@ -19,11 +19,14 @@ interface RequestBody {
   nominatedPharmacy: boolean;
   receiveHealthcareUpdates: boolean;
   referral: string;
+  newSignUp: boolean;
 }
 
 export async function POST(req: NextRequest) {
   try {
     const body = (await req.json()) as RequestBody;
+
+    console.log(body);
 
     const response = await pharmaPalInstance.post("/patient/sign-up", body, {
       headers: {
@@ -35,7 +38,9 @@ export async function POST(req: NextRequest) {
       status: response.status,
     });
   } catch (error) {
-    console.error("Error signing up new customer:", error);
+    if (error instanceof AxiosError) {
+      console.error("Error signing up new customer:", error.message);
+    }
     return new NextResponse("Error signing up new customer", { status: 500 });
   }
 }

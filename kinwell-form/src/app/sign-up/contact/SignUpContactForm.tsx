@@ -20,6 +20,7 @@ import { filterOptions } from "../../contact/helpers/filterOptions";
 import { PersonalDetailsData } from "../personal-details/page";
 import { LoadingButton } from "@mui/lab";
 import SignUpStepper from "@/app/components/SignUpStepper";
+import { AddressDataSession } from "@/app/check-postcode/page";
 
 interface ContactData {
   gpSurgery: GpSurgery;
@@ -42,6 +43,7 @@ export default function SignUpContactForm({
     handleSubmit,
     control,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm<ContactData>();
 
@@ -55,7 +57,16 @@ export default function SignUpContactForm({
       if (existingData.email) {
         setValue("email", existingData.email);
       }
-      setValue("gpSurgery", existingData.gpSurgery);
+      if (existingData.gpSurgery) {
+        // Preselect the GP surgery by setting both `selectedGp` and the form value
+        const preselectedGp = gpSurgeries.find(
+          (surgery) => surgery.id === existingData.gpSurgery.id
+        );
+        if (preselectedGp) {
+          setSelectedGp(preselectedGp);
+          setValue("gpSurgery", preselectedGp);
+        }
+      }
     }
   }, [setValue]);
 
@@ -64,9 +75,11 @@ export default function SignUpContactForm({
 
     const { gpSurgery, mobileNumber, email } = formData;
 
-    const { fullName, dateOfBirth, sex }: PersonalDetailsData = JSON.parse(
-      sessionStorage.getItem("signUpPersonalDetails") || "{}"
-    );
+    const { fullName, dateOfBirth, sex, referral }: PersonalDetailsData =
+      JSON.parse(sessionStorage.getItem("signUpPersonalDetails") || "{}");
+
+    const { ADDRESS, POST_TOWN, UPRN, UDPRN, POSTCODE }: AddressDataSession =
+      JSON.parse(sessionStorage.getItem("signUpAddressDetails") || "{}");
 
     try {
       setLoading(true);
@@ -79,6 +92,17 @@ export default function SignUpContactForm({
           fullName,
           dateOfBirth,
           sex,
+          fullAddress: ADDRESS,
+          postcode: POSTCODE,
+          city: POST_TOWN,
+          addressLine1: ADDRESS,
+          uprn: UPRN,
+          udprn: UDPRN,
+          nominatedPharmacy: true,
+          referral,
+          pharmacyName: "KinWell Pharmacy",
+          receiveHealthcareUpdates: true,
+          newSignUp: true,
         }
       );
       sessionStorage.clear();
@@ -92,7 +116,7 @@ export default function SignUpContactForm({
 
   return (
     <Stack alignItems="center" marginTop={5}>
-      <SignUpStepper activeStep={1} />
+      <SignUpStepper activeStep={2} />
       <Fade in timeout={300}>
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
           <Grid
@@ -211,7 +235,7 @@ export default function SignUpContactForm({
                     ":hover": { backgroundColor: "white" },
                   }}
                   onClick={() => {
-                    router.push("/sign-up/personal-details");
+                    router.push("/sign-up/address");
                   }}
                 >
                   Previous

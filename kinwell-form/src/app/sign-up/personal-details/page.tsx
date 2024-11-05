@@ -71,7 +71,7 @@ export default function PersonalDetails() {
         );
       }
       setValue("sex", existingData.sex);
-      setValue("referral", existingData.referral);
+      setValue("referral", existingData.referral || "");
     }
   }, [setValue]);
   const onSubmit = (formData: PersonalDetailsData) => {
@@ -92,7 +92,7 @@ export default function PersonalDetails() {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Stack alignItems="center" marginTop={5}>
-        <SignUpStepper activeStep={0} />
+        <SignUpStepper activeStep={0} showBanner={true} />
         <Fade in timeout={300}>
           <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
             <Grid
@@ -171,21 +171,26 @@ export default function PersonalDetails() {
                 <InputLabel htmlFor="referral" required margin="dense">
                   How did you hear about us?
                 </InputLabel>
-                <Select
-                  fullWidth
-                  id="referral"
-                  value={getValues("referral")}
-                  {...register("referral", {
-                    required: true,
-                  })}
-                  required
-                >
-                  {referralItems.map((item, key) => (
-                    <MenuItem value={item} key={key}>
-                      {item}
-                    </MenuItem>
-                  ))}
-                </Select>
+                <Controller
+                  name="referral"
+                  control={control}
+                  defaultValue={getValues("referral") ?? ""}
+                  render={({ field }) => (
+                    <Select
+                      fullWidth
+                      id="referral"
+                      value={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                      required
+                    >
+                      {referralItems.map((item, key) => (
+                        <MenuItem value={item} key={key}>
+                          {item}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  )}
+                />
               </Grid>
               {selectedReferral === "Other (please specify)" ? (
                 <Grid size={{ xs: 12 }}>

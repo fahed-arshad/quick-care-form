@@ -7,8 +7,15 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import Banner from "./Banner";
 
-export default function SignUpStepper({ activeStep }: { activeStep: number }) {
+export default function SignUpStepper({
+  activeStep,
+  showBanner = false,
+}: {
+  activeStep: number;
+  showBanner?: boolean;
+}) {
   const theme = useTheme();
   const stepsToUse = ["Personal", "Address", "Contact"];
 
@@ -34,7 +41,15 @@ export default function SignUpStepper({ activeStep }: { activeStep: number }) {
           </Step>
         ))}
       </Stepper>
-      <Divider />
+      {showBanner && <Banner />}
+      <Box
+        sx={{
+          paddingRight: { xs: 2, sm: 6 },
+          paddingLeft: { xs: 2, sm: 6 },
+        }}
+      >
+        <Divider />
+      </Box>
     </Box>
   );
 }

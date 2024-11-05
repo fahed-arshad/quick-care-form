@@ -12,20 +12,18 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import { Controller, useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import Grid from "@mui/material/Grid2";
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { filterOptions } from "../../contact/helpers/filterOptions";
-import { PersonalDetailsData } from "../personal-details/page";
 import { LoadingButton } from "@mui/lab";
 import SignUpStepper from "@/app/components/SignUpStepper";
 import SearchIcon from "@mui/icons-material/Search";
-import { AddressData } from "@/app/check-postcode/page";
+import { AddressData, AddressDataSession } from "../../check-postcode/page";
 
-interface AddressDetailsData {
+export interface AddressDetailsData {
   fullAddress: string;
   postcode: string;
 }
@@ -37,6 +35,7 @@ export default function SignUpContactForm() {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [addressLoading, setAddressLoading] = useState<boolean>(false);
+
   const {
     register,
     handleSubmit,
@@ -68,17 +67,21 @@ export default function SignUpContactForm() {
   };
 
   useEffect(() => {
-    const existingData: AddressDetailsData = JSON.parse(
-      sessionStorage.getItem("signUpContactDetails") || "{}"
+    const existingData: AddressDataSession = JSON.parse(
+      sessionStorage.getItem("signUpAddressDetails") || "{}"
     );
 
+    console.log(existingData);
+
     if (existingData) {
+      if (existingData.POSTCODE) {
+        setValue("postcode", existingData.POSTCODE);
+      }
     }
   }, [setValue]);
 
   const onSubmit = async (formData: AddressDetailsData) => {
-    sessionStorage.setItem("signUpAddressDetails", JSON.stringify(formData));
-
+    sessionStorage.setItem("signUpAddressDetails", formData.fullAddress);
     router.push("/sign-up/contact");
   };
 
@@ -93,7 +96,8 @@ export default function SignUpContactForm() {
             justifyContent="center"
             sx={{ padding: { xs: 2, sm: 6 } }}
           >
-            <Grid size={{ xs: 12, md: 6 }}>
+            {/* Postcode Field */}
+            <Grid size={{ xs: 12 }}>
               <InputLabel htmlFor="postcode" required margin="dense">
                 Postcode
               </InputLabel>
@@ -101,6 +105,7 @@ export default function SignUpContactForm() {
                 id="postcode"
                 fullWidth
                 required
+                defaultValue={getValues("postcode") ?? ""}
                 slotProps={{
                   htmlInput: {
                     style: {
@@ -130,9 +135,11 @@ export default function SignUpContactForm() {
                 }
               `}</style>
             </Grid>
-            <Grid size={{ xs: 12, md: 6 }} alignContent="center">
+
+            {/* Search Address Button */}
+            <Grid size={{ xs: 12 }} alignContent="center">
               <LoadingButton
-                onClick={async (e) =>
+                onClick={async () =>
                   await fetchAddressOptions(getValues().postcode.trim())
                 }
                 fullWidth
@@ -147,37 +154,48 @@ export default function SignUpContactForm() {
                 Search Address
               </LoadingButton>
             </Grid>
+
+            {/* Address Selection Dropdown */}
             <Grid size={{ xs: 12 }}>
               <InputLabel id="address-label" required>
                 Select your address
               </InputLabel>
               <FormControl fullWidth sx={{ height: "100%", width: "100%" }}>
-                <Select
-                  fullWidth
-                  disabled={isAddressDisabled}
-                  labelId="address-label"
-                  required
-                  {...register("fullAddress", { required: true })}
-                  sx={{
-                    backgroundColor: "white",
-                    whiteSpace: "normal!important",
-                    "& .MuiSelect-select": { whiteSpace: "normal!important" },
-                  }}
-                  error={!!errors.fullAddress}
-                  open={open}
-                  onOpen={() => setOpen(true)}
-                  onClose={() => setOpen(false)}
-                >
-                  {addressOptions.map((address, index) => (
-                    <MenuItem
-                      key={index}
-                      value={JSON.stringify(address.DPA)}
-                      sx={{ whiteSpace: "normal" }}
+                <Controller
+                  name="fullAddress"
+                  control={control}
+                  defaultValue={getValues("fullAddress")}
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      fullWidth
+                      disabled={isAddressDisabled}
+                      labelId="address-label"
+                      required
+                      sx={{
+                        backgroundColor: "white",
+                        whiteSpace: "normal!important",
+                        "& .MuiSelect-select": {
+                          whiteSpace: "normal!important",
+                        },
+                      }}
+                      error={!!errors.fullAddress}
+                      open={open}
+                      onOpen={() => setOpen(true)}
+                      onClose={() => setOpen(false)}
                     >
-                      {address?.DPA?.ADDRESS}
-                    </MenuItem>
-                  ))}
-                </Select>
+                      {addressOptions.map((address, index) => (
+                        <MenuItem
+                          key={index}
+                          value={JSON.stringify(address.DPA)}
+                          sx={{ whiteSpace: "normal" }}
+                        >
+                          {address?.DPA?.ADDRESS}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  )}
+                />
                 {errors.fullAddress ? (
                   <FormHelperText>
                     <Typography color="error">
@@ -187,6 +205,8 @@ export default function SignUpContactForm() {
                 ) : null}
               </FormControl>
             </Grid>
+
+            {/* Navigation Buttons */}
             <Grid
               container
               size={{ xs: 12 }}
@@ -202,7 +222,7 @@ export default function SignUpContactForm() {
                   variant="contained"
                   endIcon={<EastRoundedIcon />}
                 >
-                  Submit
+                  Next
                 </LoadingButton>
               </Grid>
               <Grid size={{ md: 6, xs: 12 }}>
