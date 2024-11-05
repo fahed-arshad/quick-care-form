@@ -1,8 +1,6 @@
 "use client";
 import { Stack, Fade, Button, Typography, Box, useTheme } from "@mui/material";
-import { useForm } from "react-hook-form";
 import Grid from "@mui/material/Grid2";
-import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import SignUpStepper from "@/app/components/SignUpStepper";
 
 export default function Success() {
@@ -35,8 +33,8 @@ export default function Success() {
             </Grid>
             <Grid size={{ xs: 12 }}>
               <Typography textAlign="center" variant="h4" component="h2">
-                We'll contact your GP and let them know you've chosen us to
-                handle your prescriptions.
+                We&apos;ll contact your GP and let them know you&apos;ve chosen
+                us to handle your prescriptions.
               </Typography>
             </Grid>
           </Grid>
