@@ -26,7 +26,7 @@ interface ContactData {
   gpSurgery: GpSurgery;
   mobileNumber: string | null;
   fullAddress: string;
-  email?: string;
+  email: string;
   postcode: string;
 }
 
@@ -198,13 +198,13 @@ export default function SignUpContactForm({
               />
             </Grid>
             <Grid size={{ xs: 12 }}>
-              <InputLabel htmlFor="email" margin="dense">
-                Email (optional)
+              <InputLabel htmlFor="email" margin="dense" required>
+                Email
               </InputLabel>
               <TextField
                 id="email"
                 fullWidth
-                {...register("email")}
+                {...register("email", { required: true })}
                 type="email"
               />
             </Grid>
