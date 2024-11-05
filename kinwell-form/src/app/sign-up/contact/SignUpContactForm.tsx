@@ -204,6 +204,7 @@ export default function SignUpContactForm({
               <TextField
                 id="email"
                 fullWidth
+                required
                 {...register("email", { required: true })}
                 type="email"
               />
