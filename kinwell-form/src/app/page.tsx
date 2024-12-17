@@ -96,6 +96,24 @@ export default function Home() {
                 <b>Click Here to Start Consultation</b>
               </Button>
             </Grid>
+            <Grid size={{ xs: 12 }}>
+              <Typography fontSize={20} textAlign="center">
+                By continuing, you consent to our collection of personal health
+                data to improve your experience.
+              </Typography>
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+              <Link href="#">
+                <Typography
+                  fontSize={20}
+                  onClick={() => setModalOpen(true)}
+                  textAlign="center"
+                  gutterBottom
+                >
+                  Click here to learn more.
+                </Typography>
+              </Link>
+            </Grid>
             <Grid
               size={{ xs: 12 }}
               display="flex"

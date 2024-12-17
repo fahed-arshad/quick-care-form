@@ -26,8 +26,6 @@ export async function POST(req: NextRequest) {
   try {
     const body = (await req.json()) as RequestBody;
 
-    console.log(body);
-
     const response = await pharmaPalInstance.post("/patient/sign-up", body, {
       headers: {
         Authorization: process.env.NEXT_PUBLIC_API_AUTH_TOKEN,
