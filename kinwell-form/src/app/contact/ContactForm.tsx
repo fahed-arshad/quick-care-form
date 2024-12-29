@@ -89,9 +89,8 @@ export default function ContactForm({
       sessionStorage.getItem("contactDetails") || "{}"
     );
 
-    const { fullName, dateOfBirth, sex }: PersonalDetailsData = JSON.parse(
-      sessionStorage.getItem("personalDetails") || "{}"
-    );
+    const { forenames, surname, dateOfBirth, sex }: PersonalDetailsData =
+      JSON.parse(sessionStorage.getItem("personalDetails") || "{}");
 
     try {
       setLoading(true);
@@ -109,7 +108,9 @@ export default function ContactForm({
         mobileNumber,
         gpSurgery,
         email,
-        fullName,
+        fullName: `${forenames} ${surname}`.trim(),
+        forenames,
+        surname,
         dateOfBirth,
         sex,
       });
@@ -201,7 +202,7 @@ export default function ContactForm({
                 helperText={
                   errors.mobileNumber?.type === "pattern"
                     ? "ⓘ Please provide a valid UK phone number"
-                    : null
+                    : "ⓘ Please provide your mobile number"
                 }
               />
             </Grid>

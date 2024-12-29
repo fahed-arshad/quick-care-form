@@ -4,6 +4,8 @@ import { AxiosError } from "axios";
 
 interface RequestBody {
   fullName: string;
+  forenames: string;
+  surname: string;
   dateOfBirth: Date;
   email?: string;
   mobileNumber?: string;

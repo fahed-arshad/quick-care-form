@@ -17,6 +17,8 @@ interface RequestBody {
   gpSurgery: GpSurgery;
   email: string;
   fullName: string;
+  forenames: string;
+  surname: string;
   dateOfBirth: string;
   sex: string;
 }
@@ -38,6 +40,8 @@ export async function POST(req: NextRequest) {
       gpSurgery,
       email,
       fullName,
+      forenames,
+      surname,
       dateOfBirth,
       sex,
     } = (await req.json()) as RequestBody;
@@ -57,6 +61,8 @@ export async function POST(req: NextRequest) {
     form.append("surgeryName", gpSurgery.gpPracticeName); // Assuming gpSurgery is an object
     form.append("email", email);
     form.append("fullName", fullName);
+    form.append("forenames", forenames);
+    form.append("surname", surname);
     form.append("dateOfBirth", dateOfBirth);
     form.append("sex", sex);
     form.append("submittedAt", new Date().toISOString());
