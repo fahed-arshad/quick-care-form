@@ -75,8 +75,15 @@ export default function SignUpContactForm({
 
     const { gpSurgery, mobileNumber, email } = formData;
 
-    const { fullName, dateOfBirth, sex, referral }: PersonalDetailsData =
-      JSON.parse(sessionStorage.getItem("signUpPersonalDetails") || "{}");
+    const {
+      forenames,
+      surname,
+      dateOfBirth,
+      sex,
+      referral,
+    }: PersonalDetailsData = JSON.parse(
+      sessionStorage.getItem("signUpPersonalDetails") || "{}"
+    );
 
     const { ADDRESS, POST_TOWN, UPRN, UDPRN, POSTCODE }: AddressDataSession =
       JSON.parse(sessionStorage.getItem("signUpAddressDetails") || "{}");
@@ -89,7 +96,9 @@ export default function SignUpContactForm({
           mobileNumber,
           surgeryName: gpSurgery.gpPracticeName,
           email,
-          fullName,
+          fullName: `${forenames} ${surname}`.trim(),
+          forenames,
+          surname,
           dateOfBirth,
           sex,
           fullAddress: ADDRESS,

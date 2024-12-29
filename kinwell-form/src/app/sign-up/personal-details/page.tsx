@@ -25,7 +25,8 @@ import { useEffect, useState } from "react";
 import SignUpStepper from "@/app/components/SignUpStepper";
 
 export interface PersonalDetailsData {
-  fullName: string;
+  forenames: string;
+  surname: string;
   dateOfBirth: any;
   sex: string;
   referral: string;
@@ -63,7 +64,8 @@ export default function PersonalDetails() {
     );
 
     if (existingData) {
-      setValue("fullName", existingData.fullName);
+      setValue("forenames", existingData.forenames);
+      setValue("surname", existingData.surname);
       if (existingData.dateOfBirth) {
         setValue(
           "dateOfBirth",
@@ -81,7 +83,35 @@ export default function PersonalDetails() {
         "dd/MM/yyyy"
       );
     }
-    formData.fullName = formData.fullName.toUpperCase();
+    formData.forenames = formData.forenames
+      .trim()
+      .split(" ") // Split the full name into an array of words by spaces
+      .map(
+        (word) =>
+          word
+            .split("-") // Split each word further by hyphen
+            .map(
+              (part) =>
+                part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
+            ) // Capitalize each part of the hyphenated word
+            .join("-") // Rejoin the hyphenated word
+      )
+      .join(" "); // Rejoin the full name
+
+    formData.surname = formData.surname
+      .trim()
+      .split(" ") // Split the full name into an array of words by spaces
+      .map(
+        (word) =>
+          word
+            .split("-") // Split each word further by hyphen
+            .map(
+              (part) =>
+                part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
+            ) // Capitalize each part of the hyphenated word
+            .join("-") // Rejoin the hyphenated word
+      )
+      .join(" "); // Rejoin the full name
     if (formData.otherReferral) {
       formData.referral = formData.otherReferral;
     }
@@ -101,18 +131,34 @@ export default function PersonalDetails() {
               justifyContent="center"
               sx={{ padding: { xs: 2, sm: 6 } }}
             >
-              <Grid size={{ xs: 12 }}>
-                <InputLabel htmlFor="fullName" required margin="dense">
-                  Full Name
+              <Grid size={{ xs: 12, sm: 6 }}>
+                <InputLabel htmlFor="forename" required margin="dense">
+                  First Name
                 </InputLabel>
                 <TextField
-                  id="fullName"
+                  id="forename"
                   fullWidth
                   required
-                  {...register("fullName", {
+                  autoComplete="given-name"
+                  {...register("forenames", {
                     required: true,
                   })}
-                  error={!!errors.fullName}
+                  error={!!errors.forenames}
+                />
+              </Grid>
+              <Grid size={{ xs: 12, sm: 6 }}>
+                <InputLabel htmlFor="surname" required margin="dense">
+                  Surname
+                </InputLabel>
+                <TextField
+                  id="surname"
+                  fullWidth
+                  required
+                  autoComplete="family-name"
+                  {...register("surname", {
+                    required: true,
+                  })}
+                  error={!!errors.surname}
                 />
               </Grid>
               <Grid size={{ xs: 12 }}>
