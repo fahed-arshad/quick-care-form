@@ -40,6 +40,7 @@ export default function PersonalDetails() {
   const referralItems = [
     "Facebook",
     "Website",
+    "Letter in the mail",
     "Referral from a friend or family members",
     "Doctor's recommendation",
     "Pharmacy Visit",
