@@ -26,7 +26,7 @@ interface ContactData {
   gpSurgery: GpSurgery;
   mobileNumber: string | null;
   fullAddress: string;
-  email?: string;
+  email: string;
   postcode: string;
 }
 
@@ -75,8 +75,15 @@ export default function SignUpContactForm({
 
     const { gpSurgery, mobileNumber, email } = formData;
 
-    const { fullName, dateOfBirth, sex, referral }: PersonalDetailsData =
-      JSON.parse(sessionStorage.getItem("signUpPersonalDetails") || "{}");
+    const {
+      forenames,
+      surname,
+      dateOfBirth,
+      sex,
+      referral,
+    }: PersonalDetailsData = JSON.parse(
+      sessionStorage.getItem("signUpPersonalDetails") || "{}"
+    );
 
     const { ADDRESS, POST_TOWN, UPRN, UDPRN, POSTCODE }: AddressDataSession =
       JSON.parse(sessionStorage.getItem("signUpAddressDetails") || "{}");
@@ -89,7 +96,9 @@ export default function SignUpContactForm({
           mobileNumber,
           surgeryName: gpSurgery.gpPracticeName,
           email,
-          fullName,
+          fullName: `${forenames} ${surname}`.trim(),
+          forenames,
+          surname,
           dateOfBirth,
           sex,
           fullAddress: ADDRESS,
@@ -198,13 +207,14 @@ export default function SignUpContactForm({
               />
             </Grid>
             <Grid size={{ xs: 12 }}>
-              <InputLabel htmlFor="email" margin="dense">
-                Email (optional)
+              <InputLabel htmlFor="email" margin="dense" required>
+                Email
               </InputLabel>
               <TextField
                 id="email"
                 fullWidth
-                {...register("email")}
+                required
+                {...register("email", { required: true })}
                 type="email"
               />
             </Grid>

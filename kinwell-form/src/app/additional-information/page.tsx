@@ -80,7 +80,12 @@ export default function AdditionalInformation() {
       <ConsultationStepper activeStep={3} useSymptomsSteps />
       <Fade in timeout={300}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Grid container spacing={2} justifyContent="center" padding={6}>
+          <Grid
+            container
+            spacing={2}
+            justifyContent="center"
+            sx={{ padding: { xs: 2, sm: 6 } }}
+          >
             <Grid size={{ xs: 12 }}>
               <InputLabel
                 htmlFor="additionalInfoToggle"

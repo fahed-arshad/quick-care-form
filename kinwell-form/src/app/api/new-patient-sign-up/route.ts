@@ -4,6 +4,8 @@ import { AxiosError } from "axios";
 
 interface RequestBody {
   fullName: string;
+  forenames: string;
+  surname: string;
   dateOfBirth: Date;
   email?: string;
   mobileNumber?: string;
@@ -25,8 +27,6 @@ interface RequestBody {
 export async function POST(req: NextRequest) {
   try {
     const body = (await req.json()) as RequestBody;
-
-    console.log(body);
 
     const response = await pharmaPalInstance.post("/patient/sign-up", body, {
       headers: {

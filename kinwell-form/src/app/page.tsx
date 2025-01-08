@@ -111,6 +111,24 @@ export default function Home() {
               />
               <Typography textAlign="center">Providing NHS services</Typography>
             </Grid>
+            <Grid size={{ xs: 12 }}>
+              <Typography fontSize={20} textAlign="center">
+                By continuing, you consent to our collection of personal health
+                data to improve your experience.
+              </Typography>
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+              <Link href="#">
+                <Typography
+                  fontSize={20}
+                  onClick={() => setModalOpen(true)}
+                  textAlign="center"
+                  gutterBottom
+                >
+                  Click here to learn more.
+                </Typography>
+              </Link>
+            </Grid>
           </Grid>
         </form>
       </Fade>
