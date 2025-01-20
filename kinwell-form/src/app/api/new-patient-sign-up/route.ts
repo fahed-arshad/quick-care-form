@@ -22,6 +22,7 @@ interface RequestBody {
   receiveHealthcareUpdates: boolean;
   referral: string;
   newSignUp: boolean;
+  receiveSmsMessages: boolean;
 }
 
 export async function POST(req: NextRequest) {
