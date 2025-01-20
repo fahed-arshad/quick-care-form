@@ -8,6 +8,8 @@ import {
   TextField,
   Autocomplete,
   FormHelperText,
+  Checkbox,
+  FormControlLabel,
 } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import Grid from "@mui/material/Grid2";
@@ -28,6 +30,7 @@ interface ContactData {
   fullAddress: string;
   email: string;
   postcode: string;
+  receiveSmsMessages: boolean;
 }
 
 export default function SignUpContactForm({
@@ -73,7 +76,7 @@ export default function SignUpContactForm({
   const onSubmit = async (formData: ContactData) => {
     sessionStorage.setItem("signUpContactDetails", JSON.stringify(formData));
 
-    const { gpSurgery, mobileNumber, email } = formData;
+    const { gpSurgery, mobileNumber, email, receiveSmsMessages } = formData;
 
     const {
       forenames,
@@ -110,7 +113,8 @@ export default function SignUpContactForm({
           nominatedPharmacy: true,
           referral,
           pharmacyName: "KinWell Pharmacy",
-          receiveHealthcareUpdates: true,
+          receiveHealthcareUpdates: receiveSmsMessages ? true : false,
+          receiveSmsMessages,
           newSignUp: true,
         }
       );
@@ -216,6 +220,20 @@ export default function SignUpContactForm({
                 required
                 {...register("email", { required: true })}
                 type="email"
+              />
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    required
+                    {...register("receiveSmsMessages", {
+                      required: true,
+                    })}
+                    defaultChecked
+                  />
+                }
+                label="I would like to receive SMS prescription collection reminders and KinWell Updates"
               />
             </Grid>
             <Grid
