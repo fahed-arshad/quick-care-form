@@ -7,6 +7,12 @@ import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
+declare global {
+  interface Window {
+    fbq: (...args: any[]) => void;
+  }
+}
+
 export default function Success() {
   const router = useRouter();
   const theme = useTheme();
@@ -19,6 +25,10 @@ export default function Success() {
   };
 
   useEffect(() => {
+    if (typeof window !== "undefined" && window.fbq) {
+      window.fbq("track", "Lead");
+    }
+
     const timer = setTimeout(() => {
       sessionStorage.clear();
       router.push("/");
