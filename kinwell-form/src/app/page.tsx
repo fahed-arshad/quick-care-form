@@ -15,11 +15,16 @@ import { useState } from "react";
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import ConsultationStepper from "./components/ConsultationStepper";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Home() {
-  const theme = useTheme();
+  const searchParams = useSearchParams();
   const router = useRouter();
+  const pharmacy = searchParams.get("pharmacy");
+  const channel = searchParams.get("channel");
+
+  const theme = useTheme();
+
   const { handleSubmit } = useForm();
   const [open, setModalOpen] = useState<boolean>(false);
 
@@ -27,9 +32,17 @@ export default function Home() {
     setModalOpen(false);
   };
 
+  if (!pharmacy) {
+    return router.push("/choose-pharmacy");
+  }
+
   const onSubmit = () => {
     sessionStorage.clear();
-    router.push("/check-postcode");
+    router.push(
+      `/check-postcode?pharmacy=${pharmacy}&channel=${
+        channel ? channel : "Kiosk"
+      }`
+    );
   };
 
   return (
