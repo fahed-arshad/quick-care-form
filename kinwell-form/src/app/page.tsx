@@ -41,8 +41,10 @@ export default function Home() {
             container
             spacing={5}
             justifyContent="center"
-            sx={{ padding: { xs: 2, sm: 6 }, marginTop: { xs: 10, md: 1 } }}
-            marginTop={10}
+            sx={{
+              padding: { xs: 2, sm: 6 },
+              marginTop: { xs: 0, sm: 10, md: 1 },
+            }}
           >
             <Grid size={{ xs: 12 }} display="flex" justifyContent="center">
               <Box
