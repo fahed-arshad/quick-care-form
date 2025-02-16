@@ -29,12 +29,15 @@ export default function Success() {
       window.fbq("track", "Lead");
     }
 
-    const timer = setTimeout(() => {
-      sessionStorage.clear();
-      router.push("/");
-    }, 60000);
+    if (process.env.NEXT_PUBLIC_CHANNEL !== "Online") {
+      const timer = setTimeout(() => {
+        sessionStorage.clear();
+        router.push("/");
+      }, 60000);
+      return () => clearTimeout(timer);
+    }
 
-    return () => clearTimeout(timer);
+    return;
   }, [router]);
 
   return (
@@ -63,10 +66,18 @@ export default function Success() {
               </Typography>
             </Grid>
             <Grid size={{ xs: 12 }}>
-              <Typography textAlign="center" variant="h4" component="h2">
-                The Pharmacist will now assess your symptoms and call your name
-                when ready. 📣
-              </Typography>
+              {process.env.NEXT_PUBLIC_CHANNEL === "Online" ? (
+                <Typography textAlign="center" variant="h4" component="h2">
+                  The Pharmacist will now review your symptoms and call you on
+                  the number you provided you with the outcome of your
+                  consultation. 📞
+                </Typography>
+              ) : (
+                <Typography textAlign="center" variant="h4" component="h2">
+                  The Pharmacist will now assess your symptoms and call your
+                  name when ready. 📣
+                </Typography>
+              )}
             </Grid>
             <Grid
               container

@@ -8,6 +8,8 @@ import {
   TextField,
   Autocomplete,
   FormHelperText,
+  FormControlLabel,
+  Checkbox,
 } from "@mui/material";
 import ConsultationStepper from "../components/ConsultationStepper";
 import { Controller, useForm } from "react-hook-form";
@@ -29,7 +31,8 @@ import { TreatmentsTriedData } from "../treatments-tried/page";
 interface ContactData {
   gpSurgery: GpSurgery;
   mobileNumber: string | null;
-  email?: string;
+  email: string;
+  remoteExemption: boolean;
 }
 
 export default function ContactForm({
@@ -113,6 +116,9 @@ export default function ContactForm({
         surname,
         dateOfBirth,
         sex,
+        channel: process.env.NEXT_PUBLIC_CHANNEL
+          ? process.env.NEXT_PUBLIC_CHANNEL
+          : "Kiosk",
       });
       sessionStorage.clear();
       router.push("/success");
@@ -207,16 +213,33 @@ export default function ContactForm({
               />
             </Grid>
             <Grid size={{ xs: 12 }}>
-              <InputLabel htmlFor="email" margin="dense">
-                Email (optional)
+              <InputLabel htmlFor="email" margin="dense" required>
+                Email
               </InputLabel>
               <TextField
                 id="email"
                 fullWidth
+                required
                 {...register("email")}
                 type="email"
               />
             </Grid>
+            {process.env.NEXT_PUBLIC_CHANNEL === "Online" ? (
+              <Grid size={{ xs: 12 }}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      required
+                      {...register("remoteExemption", {
+                        required: true,
+                      })}
+                      defaultChecked
+                    />
+                  }
+                  label="I confirm that I am unable to attend the pharmacy in person for a valid reason."
+                />
+              </Grid>
+            ) : null}
             <Grid
               container
               size={{ xs: 12 }}
