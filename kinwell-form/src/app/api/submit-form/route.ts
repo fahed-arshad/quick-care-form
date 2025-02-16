@@ -21,6 +21,8 @@ interface RequestBody {
   surname: string;
   dateOfBirth: string;
   sex: string;
+  pharmacy: string;
+  channel: string;
 }
 
 export async function POST(req: NextRequest) {
@@ -44,6 +46,8 @@ export async function POST(req: NextRequest) {
       surname,
       dateOfBirth,
       sex,
+      pharmacy,
+      channel,
     } = (await req.json()) as RequestBody;
 
     const form = new FormData();
@@ -66,8 +70,8 @@ export async function POST(req: NextRequest) {
     form.append("dateOfBirth", dateOfBirth);
     form.append("sex", sex);
     form.append("submittedAt", new Date().toISOString());
-    form.append("channel", "Kiosk");
-    form.append("pharmacyName", "KinWell Pharmacy");
+    form.append("channel", channel);
+    form.append("pharmacyName", pharmacy);
 
     const response = await pharmaPalInstance.post("/chat/form", form, {
       headers: {

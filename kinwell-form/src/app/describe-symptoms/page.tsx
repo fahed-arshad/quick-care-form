@@ -26,6 +26,10 @@ export interface DescribeSymptomData {
 export default function Symptoms() {
   const router = useRouter();
 
+  const [pharmacy, setPharmacy] = useState<string>();
+
+  const [channel, setChannel] = useState<string>();
+
   const {
     register,
     handleSubmit,
@@ -37,6 +41,14 @@ export default function Symptoms() {
     const existingData: DescribeSymptomData = JSON.parse(
       sessionStorage.getItem("symptoms") || "{}"
     );
+
+    const pharmacy = sessionStorage.getItem("pharmacy") || undefined;
+
+    setPharmacy(pharmacy);
+
+    const channel = sessionStorage.getItem("channel") || undefined;
+
+    setChannel(channel);
 
     if (existingData) {
       setValue("symptoms", existingData.symptoms);
@@ -108,7 +120,9 @@ export default function Symptoms() {
                     ":hover": { backgroundColor: "white" },
                   }}
                   onClick={() => {
-                    router.push("/check-postcode");
+                    router.push(
+                      `/check-postcode?pharmacy=${pharmacy}&channel=${channel}`
+                    );
                   }}
                 >
                   Previous

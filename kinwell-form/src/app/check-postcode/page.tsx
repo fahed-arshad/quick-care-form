@@ -16,7 +16,7 @@ import {
 import Grid from "@mui/material/Grid2";
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import ConsultationStepper from "../components/ConsultationStepper";
 import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
@@ -103,6 +103,10 @@ export default function CheckPostcode() {
   const [addressOptions, setAddressOptions] = useState<AddressData[]>([]);
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const pharmacy = searchParams.get("pharmacy");
+  const channel = searchParams.get("channel");
+
   const {
     register,
     handleSubmit,
@@ -115,11 +119,18 @@ export default function CheckPostcode() {
     sessionStorage.clear();
   }, []);
 
+  if (!pharmacy) {
+    return router.push("/choose-pharmacy");
+  }
+
   const onSubmit = async (formData: FormData) => {
     try {
       if (formData.fullAddress) {
         sessionStorage.clear();
         sessionStorage.setItem("address", formData.fullAddress);
+        sessionStorage.setItem("pharmacy", pharmacy);
+        sessionStorage.setItem("channel", channel ? channel : "Kiosk");
+
         return router.push("/describe-symptoms");
       }
       setLoading(true);
@@ -289,7 +300,11 @@ export default function CheckPostcode() {
                     ":hover": { backgroundColor: "white" },
                   }}
                   onClick={() => {
-                    router.push("/");
+                    router.push(
+                      `/?pharmacy=${pharmacy}&channel=${
+                        channel ? channel : "In%20Store"
+                      }`
+                    );
                   }}
                 >
                   Previous

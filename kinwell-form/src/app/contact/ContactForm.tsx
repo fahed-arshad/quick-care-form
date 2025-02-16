@@ -8,6 +8,8 @@ import {
   TextField,
   Autocomplete,
   FormHelperText,
+  FormControlLabel,
+  Checkbox,
 } from "@mui/material";
 import ConsultationStepper from "../components/ConsultationStepper";
 import { Controller, useForm } from "react-hook-form";
@@ -30,6 +32,7 @@ interface ContactData {
   gpSurgery: GpSurgery;
   mobileNumber: string | null;
   email?: string;
+  remoteExemption: boolean;
 }
 
 export default function ContactForm({
@@ -92,6 +95,10 @@ export default function ContactForm({
     const { forenames, surname, dateOfBirth, sex }: PersonalDetailsData =
       JSON.parse(sessionStorage.getItem("personalDetails") || "{}");
 
+    const pharmacy = sessionStorage.getItem("pharmacy");
+
+    const channel = sessionStorage.getItem("channel");
+
     try {
       setLoading(true);
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/submit-form`, {
@@ -113,8 +120,14 @@ export default function ContactForm({
         surname,
         dateOfBirth,
         sex,
+        pharmacy,
+        channel,
       });
       sessionStorage.clear();
+      if (channel === "Online") {
+        router.push("/success-online");
+      }
+
       router.push("/success");
       setLoading(false);
     } catch (error) {
@@ -122,6 +135,8 @@ export default function ContactForm({
       console.error(error);
     }
   };
+
+  const channel = sessionStorage.getItem("channel");
 
   return (
     <Stack alignItems="center" marginTop={5}>
@@ -207,8 +222,8 @@ export default function ContactForm({
               />
             </Grid>
             <Grid size={{ xs: 12 }}>
-              <InputLabel htmlFor="email" margin="dense">
-                Email (optional)
+              <InputLabel htmlFor="email" margin="dense" required>
+                Email
               </InputLabel>
               <TextField
                 id="email"
@@ -217,6 +232,23 @@ export default function ContactForm({
                 type="email"
               />
             </Grid>
+            {channel === "Online" ? (
+              <Grid size={{ xs: 12 }}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      required
+                      {...register("remoteExemption", {
+                        required: true,
+                      })}
+                      defaultChecked
+                    />
+                  }
+                  label="I confirm that I am unable to attend the pharmacy in person for a valid reason."
+                />
+              </Grid>
+            ) : null}
+
             <Grid
               container
               size={{ xs: 12 }}
