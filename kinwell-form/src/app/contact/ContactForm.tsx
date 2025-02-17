@@ -236,7 +236,7 @@ export default function ContactForm({
                       defaultChecked
                     />
                   }
-                  label="I confirm that I am unable to attend the pharmacy in person for a valid reason."
+                  label="I confirm that I am unable to attend the pharmacy in person right now."
                 />
               </Grid>
             ) : null}
