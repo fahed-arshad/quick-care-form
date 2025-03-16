@@ -236,7 +236,7 @@ export default function ContactForm({
                       defaultChecked
                     />
                   }
-                  label="I confirm that I am unable to attend the pharmacy in person right now."
+                  label="Yes, add a summary document for £6.99"
                 />
               </Grid>
             ) : null}
