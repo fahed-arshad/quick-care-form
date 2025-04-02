@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
       },
       {
         headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_AUTH_TOKEN}`,
+          "x-api-key": process.env.QUICK_CARE_API_KEY,
         },
       }
     );

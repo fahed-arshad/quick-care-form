@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
 
     const response = await pharmaPalInstance.post("/patient/sign-up", body, {
       headers: {
-        Authorization: process.env.NEXT_PUBLIC_API_AUTH_TOKEN,
+        "x-api-key": process.env.QUICK_CARE_API_KEY,
       },
     });
 
