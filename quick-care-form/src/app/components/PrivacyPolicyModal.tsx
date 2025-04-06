@@ -59,7 +59,7 @@ export default function PrivacyPolicyModal({
               component="h2"
               gutterBottom
             >
-              Privacy Policy for Pharma Pal
+              Privacy Policy for Cured Click Ltd
             </Typography>
             <Button onClick={handleClose} variant="outlined">
               <CloseIcon />
@@ -69,132 +69,146 @@ export default function PrivacyPolicyModal({
         </Box>
         <Box sx={{ padding: 2 }}>
           <Typography variant="h4" gutterBottom>
-            Purpose of Data Collection
+            Introduction
           </Typography>
           <Typography>
-            At Pharma Pal, we collect personal health data to enhance your
-            experience using our Pharmacy First service. The data helps us to:
+            Welcome to Quick Care by Cured Click Ltd. We are dedicated to
+            enhancing pharmacy operations and patient care through our
+            innovative AI-driven tools. This Privacy Policy provides detailed
+            information on how we collect, use, and protect your personal and
+            health-related data.
+          </Typography>
+
+          <Typography variant="h4" gutterBottom>
+            Information Collection
+          </Typography>
+          <Typography>
+            We collect information that you provide directly when you interact
+            with Quick Care, including:
           </Typography>
           <List>
             <ListItem>
-              Provide personalised and efficient pharmacy consultations.
+              Personal identifiers like your name, address, and date of birth.
             </ListItem>
             <ListItem>
-              Ensure accuracy in health advice and treatments.
+              Contact details such as email address and phone number.
             </ListItem>
             <ListItem>
-              Customise your interactions to better meet your healthcare needs.
+              Health information including symptoms, diagnosis, and medication
+              history. We may also collect technical data from your interactions
+              with our services.
             </ListItem>
           </List>
 
           <Typography variant="h4" gutterBottom>
-            Types of Data Collected
+            Use of Information
           </Typography>
-          <Typography>
-            We collect the following types of personal health data:
-          </Typography>
+          <Typography>Your data is used to:</Typography>
           <List>
+            <ListItem>Provide personalised healthcare services.</ListItem>
+            <ListItem>Improve and optimise our tools and services.</ListItem>
+            <ListItem>Communicate important updates or changes.</ListItem>
             <ListItem>
-              <strong>Personal Identification Information:</strong> Full name,
-              date of birth, and contact details.
-            </ListItem>
-            <ListItem>
-              <strong>Health Information:</strong> Specific symptoms, medical
-              history, and other health-related information necessary for your
-              consultation.
-            </ListItem>
-            <ListItem>
-              <strong>General Practitioner (GP) Information:</strong> Name and
-              contact details of your GP to ensure continuity of care.
+              Respond to inquiries or customer support requests.
             </ListItem>
           </List>
-
-          <Typography variant="h4" gutterBottom>
-            Data Use
-          </Typography>
           <Typography>
-            The personal health data collected is used to:
+            The legal basis for processing your data includes consent,
+            contractual necessity, and our legitimate interests in providing
+            effective services.
           </Typography>
-          <List>
-            <ListItem>Conduct and manage effective consultations.</ListItem>
-            <ListItem>
-              Provide tailored health advice based on your specific symptoms and
-              medical history.
-            </ListItem>
-            <ListItem>
-              Improve and refine the services offered by Pharma Pal.
-            </ListItem>
-          </List>
 
           <Typography variant="h4" gutterBottom>
             Data Sharing and Disclosure
           </Typography>
           <Typography>
-            We only share your personal health data with third parties when
-            necessary and in compliance with privacy laws. This includes:
+            We share information with third parties only in the following
+            circumstances:
           </Typography>
           <List>
             <ListItem>
-              Healthcare providers, when coordination with your GP is required.
+              Service providers who assist us with operational tasks.
             </ListItem>
             <ListItem>
-              IT service providers, strictly for the purpose of maintaining and
-              improving our services.
+              If required by law or to protect our rights and the safety of
+              others.
             </ListItem>
             <ListItem>
-              Legal disclosures when mandated by law or for security purposes.
+              With your consent, or as part of a business transaction such as a
+              merger or acquisition.
             </ListItem>
           </List>
 
           <Typography variant="h4" gutterBottom>
-            Data Security Measures
+            Data Security
           </Typography>
           <Typography>
-            To protect your personal data, we implement robust security
-            measures, including:
+            We implement robust security measures to protect your data against
+            unauthorised access, alteration, or destruction. These include
+            encryption, access controls, and secure data storage solutions.
           </Typography>
-          <List>
-            <ListItem>Encryption of data both in transit and at rest.</ListItem>
-            <ListItem>
-              Secure data storage practices with access limited to authorised
-              personnel only.
-            </ListItem>
-            <ListItem>
-              Regular audits and compliance checks to ensure data protection
-              standards are met.
-            </ListItem>
-          </List>
 
           <Typography variant="h4" gutterBottom>
-            User Rights
+            Data Retention
           </Typography>
           <Typography>
-            You have several rights regarding your personal data, including the
-            right to:
+            We retain your personal information for as long as necessary to
+            fulfil the purposes outlined in this policy, unless a longer
+            retention period is required or permitted by law.
           </Typography>
+
+          <Typography variant="h4" gutterBottom>
+            Your Rights
+          </Typography>
+          <Typography>You have the right to:</Typography>
           <List>
-            <ListItem>Access the data we hold about you.</ListItem>
-            <ListItem>Request corrections to any inaccurate data.</ListItem>
+            <ListItem>Access, correct, or delete your personal data.</ListItem>
+            <ListItem>
+              Restrict or object to our processing of your data.
+            </ListItem>
             <ListItem>
               Request deletion of your data where appropriate.
             </ListItem>
             <ListItem>
-              Withdraw consent for data processing at any time.
+              Withdraw consent at any time, without affecting the lawfulness of
+              processing based on consent before its withdrawal.
             </ListItem>
           </List>
+
+          <Typography variant="h4" gutterBottom>
+            Use of Cookies and Tracking Technologies
+          </Typography>
           <Typography>
-            To exercise these rights, please contact us directly through the
-            provided contact details.
+            We use cookies and similar tracking technologies to monitor
+            interactions with our services and improve your user experience. You
+            can control the use of cookies at the individual browser level.
           </Typography>
 
           <Typography variant="h4" gutterBottom>
-            Consent and Withdrawal
+            Links to Other Websites
           </Typography>
           <Typography>
-            By using our service, you consent to the collection and use of your
-            personal data as described in this document. You can withdraw your
-            consent at any time by contacting us. Instructions for managing your
-            consent preferences are available on our platform.
+            Our services may contain links to other websites not operated by us.
+            We are not responsible for the privacy practices of these websites.
+          </Typography>
+
+          <Typography variant="h4" gutterBottom>
+            Children&apos;s Privacy
+          </Typography>
+          <Typography>
+            We do not knowingly collect or use information from children under
+            the age of 16 without parental consent. If we become aware that we
+            have collected such information, we will take steps to delete it.
+          </Typography>
+
+          <Typography variant="h4" gutterBottom>
+            Changes to the Privacy Policy
+          </Typography>
+          <Typography>
+            We may update this policy from time to time. We will notify you of
+            any changes by posting the new Privacy Policy on this page. We
+            encourage you to review this Privacy Policy periodically for any
+            changes.
           </Typography>
 
           <Typography variant="h4" gutterBottom>
@@ -208,23 +222,13 @@ export default function PrivacyPolicyModal({
             Email:{" "}
             <Link href="mailto:info@curedclick.com">info@curedclick.com</Link>
           </Typography>
-          <Typography>Phone: 07402 239242</Typography>
+          <Typography>Phone: 07492 669479</Typography>
 
           <Typography variant="h4" gutterBottom>
-            Updates to Privacy Practices
+            Effective Date
           </Typography>
           <Typography>
-            We may update our data privacy practices periodically. Such changes
-            will be communicated through our website and via email to registered
-            users.
-          </Typography>
-
-          <Typography variant="h4" gutterBottom>
-            Full Privacy Policy
-          </Typography>
-          <Typography>
-            For more detailed information about our data handling practices,
-            please refer to our full privacy policy.
+            This Privacy Policy is effective as of 16/01/2025
           </Typography>
         </Box>
       </Box>

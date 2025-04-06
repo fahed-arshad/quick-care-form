@@ -69,7 +69,7 @@ export default function DataPrivacyModal({
               component="h2"
               gutterBottom
             >
-              Data Privacy Information for Pharma Pal
+              Data Privacy Information for Quick Care by Cured Click Ltd
             </Typography>
             <Button onClick={handleClose} variant="outlined">
               <CloseIcon />
@@ -82,8 +82,9 @@ export default function DataPrivacyModal({
             Purpose of Data Collection
           </Typography>
           <Typography>
-            At Pharma Pal, we collect personal health data to enhance your
-            experience using our Pharmacy First service. The data helps us to:
+            At Quick Care by Cured Click Ltd, we collect personal health data to
+            enhance your experience using our Pharmacy First service. The data
+            helps us to:
           </Typography>
           <List>
             <ListItem>
@@ -137,7 +138,7 @@ export default function DataPrivacyModal({
               medical history.
             </ListItem>
             <ListItem>
-              Improve and refine the services offered by Pharma Pal.
+              Improve and refine the services offered by Quick Care.
             </ListItem>
           </List>
 
@@ -224,7 +225,7 @@ export default function DataPrivacyModal({
             <Link href="mailto:info@curedclick.com">info@curedclick.com</Link>
           </Typography>
           <Typography>
-            Phone: <Link href="tel:+447492669479">07402 239242</Link>
+            Phone: <Link href="tel:+447492669479">07492 669479</Link>
           </Typography>
 
           <Typography variant="h5" gutterBottom>
