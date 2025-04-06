@@ -50,7 +50,7 @@ export default function Home() {
               <Box
                 component="img"
                 src="https://i.imgur.com/QRVEoaF.png"
-                alt="KinWell logo"
+                alt="Quick Care logo"
                 width={300}
                 sx={{ [theme.breakpoints.down("sm")]: { width: 200 } }}
               />
