@@ -54,10 +54,10 @@ export default function Success() {
             <Grid size={{ xs: 12 }} display="flex" justifyContent="center">
               <Box
                 component="img"
-                src="https://i.imgur.com/QRVEoaF.png"
-                alt="KinWell logo"
-                width={300}
-                sx={{ [theme.breakpoints.down("sm")]: { width: 200 } }}
+                src="https://quickcaredemo.s3.eu-west-2.amazonaws.com/QuickCare+LOGO.png"
+                alt="Quick Care logo"
+                width={600}
+                sx={{ [theme.breakpoints.down("sm")]: { width: 350 } }}
               />
             </Grid>
             <Grid size={{ xs: 12 }}>

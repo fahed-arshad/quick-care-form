@@ -20,10 +20,10 @@ const baseTheme = createTheme({
       main: "#FFFFFF",
     },
     primary: {
-      main: "#05173d",
+      main: "#01081B",
     },
     secondary: {
-      main: "#00a2af",
+      main: "#2E68FD",
     },
     text: {
       primary: "#303133",
@@ -51,6 +51,13 @@ export const theme = createTheme({
         root: {
           fontSize: "24px",
           backgroundColor: "white",
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: {
+          borderColor: baseTheme.palette.primary.main,
         },
       },
     },

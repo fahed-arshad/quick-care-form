@@ -135,7 +135,7 @@ export default function CheckPostcode() {
           return setError("postcode", {
             type: "validate",
             message:
-              "Sorry! We only offer these services in Scotland. If you have any concerns, KinWell Pharmacy staff are always happy to help.",
+              "Sorry! We only offer these services in Scotland. If you have any concerns, pharmacy staff are always happy to help.",
           });
         }
       } catch (error) {
@@ -152,7 +152,7 @@ export default function CheckPostcode() {
         return setError("postcode", {
           type: "validate",
           message:
-            "There was an error finding your address. Please contact KinWell staff for further assistance.",
+            "There was an error finding your address. Please contact staff for further assistance.",
         });
       }
 

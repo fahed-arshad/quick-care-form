@@ -49,10 +49,10 @@ export default function Home() {
             <Grid size={{ xs: 12 }} display="flex" justifyContent="center">
               <Box
                 component="img"
-                src="https://i.imgur.com/QRVEoaF.png"
+                src="https://quickcaredemo.s3.eu-west-2.amazonaws.com/QuickCare+LOGO.png"
                 alt="Quick Care logo"
-                width={300}
-                sx={{ [theme.breakpoints.down("sm")]: { width: 200 } }}
+                width={600}
+                sx={{ [theme.breakpoints.down("sm")]: { width: 375 } }}
               />
             </Grid>
             <Grid size={{ xs: 12 }}>
