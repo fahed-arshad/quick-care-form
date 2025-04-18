@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
     form.append("sex", sex);
     form.append("submittedAt", new Date().toISOString());
     form.append("channel", channel);
-    form.append("pharmacyName", "KinWell Pharmacy");
+    form.append("pharmacyId", "1");
 
     const response = await pharmaPalInstance.post("/chat/form", form, {
       headers: {
