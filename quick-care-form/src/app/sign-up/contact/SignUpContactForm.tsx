@@ -22,7 +22,7 @@ import { filterOptions } from "../../contact/helpers/filterOptions";
 import { PersonalDetailsData } from "../personal-details/page";
 import { LoadingButton } from "@mui/lab";
 import SignUpStepper from "@/app/components/SignUpStepper";
-import { AddressDataSession } from "@/app/check-postcode/page";
+import { AddressDataSession } from "@/app/utils/store";
 
 interface ContactData {
   gpSurgery: GpSurgery;
