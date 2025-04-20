@@ -21,7 +21,7 @@ import { useEffect, useState } from "react";
 import { LoadingButton } from "@mui/lab";
 import SignUpStepper from "@/app/components/SignUpStepper";
 import SearchIcon from "@mui/icons-material/Search";
-import { AddressData, AddressDataSession } from "../../check-postcode/page";
+import { AddressData, AddressDataSession } from "@/app/utils/store";
 
 export interface AddressDetailsData {
   fullAddress: string;
