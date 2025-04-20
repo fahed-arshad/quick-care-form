@@ -19,8 +19,8 @@ import { useRouter } from "next/navigation";
 import { DateField, LocalizationProvider } from "@mui/x-date-pickers";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
-import { format, parse } from "date-fns";
-import { useEffect } from "react";
+import { format, parseISO } from "date-fns";
+import { Data, useFormStore } from "../utils/store";
 
 export interface PersonalDetailsData {
   forenames: string;
@@ -33,39 +33,27 @@ export default function PersonalDetails() {
   const router = useRouter();
   const theme = useTheme();
 
+  const { formData, updateForm } = useFormStore();
+
   const {
     register,
     handleSubmit,
     control,
-    setValue,
     getValues,
     formState: { errors },
-  } = useForm<PersonalDetailsData>();
+  } = useForm<Data>({
+    defaultValues: {
+      forenames: formData.forenames,
+      surname: formData.surname,
+      dateOfBirth:
+        typeof formData.dateOfBirth === "string"
+          ? parseISO(formData.dateOfBirth)
+          : formData.dateOfBirth,
+      sex: formData.sex,
+    },
+  });
 
-  useEffect(() => {
-    const existingData: PersonalDetailsData = JSON.parse(
-      sessionStorage.getItem("personalDetails") || "{}"
-    );
-
-    if (existingData) {
-      setValue("forenames", existingData.forenames);
-      setValue("surname", existingData.surname);
-      if (existingData.dateOfBirth) {
-        setValue(
-          "dateOfBirth",
-          parse(existingData.dateOfBirth, "dd/MM/yyyy", new Date())
-        );
-      }
-      setValue("sex", existingData.sex);
-    }
-  }, [setValue]);
-  const onSubmit = (formData: PersonalDetailsData) => {
-    if (formData.dateOfBirth) {
-      formData.dateOfBirth = format(
-        new Date(formData.dateOfBirth),
-        "dd/MM/yyyy"
-      );
-    }
+  const onSubmit = (formData: Data) => {
     formData.forenames = formData.forenames
       .trim()
       .split(" ") // Split the full name into an array of words by spaces
@@ -96,7 +84,14 @@ export default function PersonalDetails() {
       )
       .join(" "); // Rejoin the full name
 
-    sessionStorage.setItem("personalDetails", JSON.stringify(formData));
+    updateForm({
+      forenames: formData.forenames,
+      surname: formData.surname,
+      dateOfBirth: formData.dateOfBirth
+        ? format(formData.dateOfBirth, "yyyy-MM-dd")
+        : undefined,
+      sex: formData.sex,
+    });
     router.push("/contact");
   };
 
@@ -149,7 +144,7 @@ export default function PersonalDetails() {
                 <Controller
                   name="dateOfBirth"
                   control={control}
-                  defaultValue={null}
+                  defaultValue={undefined}
                   render={({ field }) => (
                     <DateField
                       fullWidth

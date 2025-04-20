@@ -1,51 +1,30 @@
 "use client";
-import {
-  Stack,
-  Fade,
-  Typography,
-  Button,
-  InputLabel,
-  TextField,
-  OutlinedInput,
-  InputAdornment,
-  ToggleButtonGroup,
-  ToggleButton,
-  FormHelperText,
-} from "@mui/material";
+import { Stack, Fade, Button, InputLabel, TextField } from "@mui/material";
 import ConsultationStepper from "../components/ConsultationStepper";
 import { useForm } from "react-hook-form";
 import Grid from "@mui/material/Grid2";
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-
-export interface DescribeSymptomData {
-  symptoms: string;
-}
+import { Data, useFormStore } from "../utils/store";
 
 export default function Symptoms() {
   const router = useRouter();
+  const { formData, updateForm } = useFormStore();
 
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
-  } = useForm<DescribeSymptomData>();
+  } = useForm<Data>({
+    defaultValues: {
+      symptoms: formData.symptoms,
+    },
+  });
 
-  useEffect(() => {
-    const existingData: DescribeSymptomData = JSON.parse(
-      sessionStorage.getItem("symptoms") || "{}"
-    );
-
-    if (existingData) {
-      setValue("symptoms", existingData.symptoms);
-    }
-  }, [setValue]);
-
-  const onSubmit = (formData: DescribeSymptomData) => {
-    formData.symptoms = formData.symptoms.trim();
-    sessionStorage.setItem("symptoms", JSON.stringify(formData));
+  const onSubmit = (formData: Data) => {
+    updateForm({
+      symptoms: formData.symptoms.trim(),
+    });
     router.push("/duration");
   };
   return (

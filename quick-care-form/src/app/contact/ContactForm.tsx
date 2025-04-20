@@ -17,23 +17,11 @@ import Grid from "@mui/material/Grid2";
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GpSurgery } from "./page";
 import { filterOptions } from "./helpers/filterOptions";
-import { AddressDataSession } from "../check-postcode/page";
-import { PersonalDetailsData } from "../personal-details/page";
 import { LoadingButton } from "@mui/lab";
-import { AdditionalInfoData } from "../additional-information/page";
-import { DescribeSymptomData } from "../describe-symptoms/page";
-import { DurationData } from "../duration/page";
-import { TreatmentsTriedData } from "../treatments-tried/page";
-
-interface ContactData {
-  gpSurgery: GpSurgery;
-  mobileNumber: string | null;
-  email: string;
-  remoteExemption: boolean;
-}
+import { Data, useFormStore } from "../utils/store";
 
 export default function ContactForm({
   gpSurgeries,
@@ -43,57 +31,41 @@ export default function ContactForm({
   const router = useRouter();
   const [selectedGp, setSelectedGp] = useState<GpSurgery | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const { formData, updateForm, resetForm } = useFormStore();
   const {
     register,
     handleSubmit,
     control,
-    setValue,
     formState: { errors },
-  } = useForm<ContactData>();
+  } = useForm<Data>({
+    defaultValues: {
+      gpSurgery: formData.gpSurgery,
+      mobileNumber: formData.mobileNumber,
+      email: formData.email,
+      remoteExemption: formData.remoteExemption,
+    },
+  });
 
-  useEffect(() => {
-    const existingData: ContactData = JSON.parse(
-      sessionStorage.getItem("contactDetails") || "{}"
-    );
-
-    if (existingData) {
-      setValue("mobileNumber", existingData.mobileNumber);
-      if (existingData.email) {
-        setValue("email", existingData.email);
-      }
-      setValue("gpSurgery", existingData.gpSurgery);
-    }
-  }, [setValue]);
-
-  const onSubmit = async (formData: ContactData) => {
-    sessionStorage.setItem("contactDetails", JSON.stringify(formData));
-
-    const { ADDRESS, POSTCODE, UPRN, UDPRN, POST_TOWN }: AddressDataSession =
-      JSON.parse(sessionStorage.getItem("address") || "{}");
-    const { symptoms }: DescribeSymptomData = JSON.parse(
-      sessionStorage.getItem("symptoms") || "{}"
-    );
-
-    const { duration }: DurationData = JSON.parse(
-      sessionStorage.getItem("duration") || "{}"
-    );
+  const onSubmit = async (data: Data) => {
+    updateForm({
+      gpSurgery: data.gpSurgery,
+      mobileNumber: data.mobileNumber,
+      email: data.email,
+      remoteExemption: data.remoteExemption,
+    });
 
     const {
+      fullAddress: { ADDRESS, POSTCODE, UPRN, UDPRN, POST_TOWN },
+      symptoms,
+      duration,
       experiencedSymptomsBefore,
       previousSymptomsDetails,
-    }: TreatmentsTriedData = JSON.parse(
-      sessionStorage.getItem("treatmentsTried") || "{}"
-    );
-
-    const { additionalInfo }: AdditionalInfoData = JSON.parse(
-      sessionStorage.getItem("additionalInfo") || "{}"
-    );
-    const { mobileNumber, gpSurgery, email }: ContactData = JSON.parse(
-      sessionStorage.getItem("contactDetails") || "{}"
-    );
-
-    const { forenames, surname, dateOfBirth, sex }: PersonalDetailsData =
-      JSON.parse(sessionStorage.getItem("personalDetails") || "{}");
+      additionalInfo,
+      forenames,
+      surname,
+      dateOfBirth,
+      sex,
+    } = formData;
 
     try {
       setLoading(true);
@@ -108,9 +80,9 @@ export default function ContactForm({
         experiencedSymptomsBefore,
         previousSymptomsDetails,
         additionalInfo,
-        mobileNumber,
-        gpSurgery,
-        email,
+        mobileNumber: data.mobileNumber,
+        gpSurgery: data.gpSurgery,
+        email: data.email,
         fullName: `${forenames} ${surname}`.trim(),
         forenames,
         surname,
@@ -120,7 +92,8 @@ export default function ContactForm({
           ? process.env.NEXT_PUBLIC_CHANNEL
           : "Kiosk",
       });
-      sessionStorage.clear();
+      resetForm();
+      localStorage.clear();
       router.push("/success");
       setLoading(false);
     } catch (error) {
@@ -154,7 +127,14 @@ export default function ContactForm({
                     options={gpSurgeries}
                     filterOptions={filterOptions}
                     getOptionLabel={({ gpPracticeName }) => gpPracticeName}
-                    value={selectedGp}
+                    value={
+                      selectedGp
+                        ? selectedGp
+                        : formData.gpSurgery &&
+                          Object.keys(formData.gpSurgery).length > 0
+                        ? formData.gpSurgery
+                        : null
+                    }
                     onChange={(_, newValue) => {
                       setSelectedGp(newValue);
                       field.onChange(newValue);

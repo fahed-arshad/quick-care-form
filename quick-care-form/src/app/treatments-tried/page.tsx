@@ -17,6 +17,7 @@ import Grid from "@mui/material/Grid2";
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Data, useFormStore } from "../utils/store";
 
 export interface TreatmentsTriedData {
   experiencedSymptomsBefore: string;
@@ -28,31 +29,28 @@ export default function Symptoms() {
   const [alignment, setAlignment] = useState<string | null>(null);
   const [display, setDisplay] = useState<string>("none");
 
+  const { formData, updateForm } = useFormStore();
+
   const {
     register,
     handleSubmit,
     setValue,
+    setError,
+    clearErrors,
     formState: { errors },
-  } = useForm<TreatmentsTriedData>();
+  } = useForm<Data>({
+    defaultValues: {
+      experiencedSymptomsBefore: formData.experiencedSymptomsBefore,
+      previousSymptomsDetails: formData.previousSymptomsDetails,
+    },
+  });
 
   useEffect(() => {
-    const existingData: TreatmentsTriedData = JSON.parse(
-      sessionStorage.getItem("treatmentsTried") || "{}"
-    );
-
-    if (existingData) {
-      setValue(
-        "experiencedSymptomsBefore",
-        existingData.experiencedSymptomsBefore
-      );
-      setAlignment(existingData.experiencedSymptomsBefore);
-      setValue("previousSymptomsDetails", existingData.previousSymptomsDetails);
-      console.log(existingData.experiencedSymptomsBefore);
-      if (existingData.experiencedSymptomsBefore === "Yes") {
-        setDisplay("block");
-      }
+    setAlignment(formData.experiencedSymptomsBefore);
+    if (formData.experiencedSymptomsBefore === "Yes") {
+      setDisplay("block");
     }
-  }, [setValue]);
+  }, [formData.experiencedSymptomsBefore]);
 
   const handleAlignment = (
     event: React.MouseEvent<HTMLElement>,
@@ -67,15 +65,27 @@ export default function Symptoms() {
     setAlignment(newAlignment);
   };
 
-  const onSubmit = (formData: TreatmentsTriedData) => {
+  const onSubmit = (formData: Data) => {
     if (formData.experiencedSymptomsBefore === "No") {
       formData.previousSymptomsDetails = "";
+    }
+    if (
+      formData.experiencedSymptomsBefore === "Yes" &&
+      !formData.previousSymptomsDetails.trim()
+    ) {
+      return setError("previousSymptomsDetails", {
+        type: "required",
+        message: "Please describe the treatments you have tried",
+      });
     }
     if (formData.previousSymptomsDetails) {
       formData.previousSymptomsDetails =
         formData.previousSymptomsDetails.trim();
     }
-    sessionStorage.setItem("treatmentsTried", JSON.stringify(formData));
+    updateForm({
+      experiencedSymptomsBefore: formData.experiencedSymptomsBefore,
+      previousSymptomsDetails: formData.previousSymptomsDetails,
+    });
     router.push("/additional-information");
   };
   return (
@@ -132,6 +142,13 @@ export default function Symptoms() {
                   fullWidth
                   minRows={2}
                   placeholder="Enter treatments here"
+                  onChange={() => clearErrors("previousSymptomsDetails")}
+                  error={errors.previousSymptomsDetails ? true : false}
+                  helperText={
+                    errors.previousSymptomsDetails?.type === "required"
+                      ? errors.previousSymptomsDetails.message
+                      : null
+                  }
                 />
               </Grid>
             )}

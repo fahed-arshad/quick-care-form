@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid2";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useFormStore } from "../utils/store";
 
 declare global {
   interface Window {
@@ -16,11 +17,12 @@ declare global {
 export default function Success() {
   const router = useRouter();
   const theme = useTheme();
-
+  const { resetForm } = useFormStore();
   const { handleSubmit } = useForm();
 
   const onSubmit = () => {
-    sessionStorage.clear();
+    resetForm();
+    localStorage.clear();
     router.push("/");
   };
 
@@ -31,7 +33,8 @@ export default function Success() {
 
     if (process.env.NEXT_PUBLIC_CHANNEL !== "Online") {
       const timer = setTimeout(() => {
-        sessionStorage.clear();
+        resetForm();
+        localStorage.clear();
         router.push("/");
       }, 60000);
       return () => clearTimeout(timer);

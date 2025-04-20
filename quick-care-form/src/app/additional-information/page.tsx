@@ -16,40 +16,36 @@ import Grid from "@mui/material/Grid2";
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-
-export interface AdditionalInfoData {
-  additionalInfo: string;
-  additionalInfoToggle: string;
-}
+import { Data, useFormStore } from "../utils/store";
 
 export default function AdditionalInformation() {
   const router = useRouter();
   const [alignment, setAlignment] = useState<string | null>(null);
   const [display, setDisplay] = useState<string>("hidden");
+  const { formData, updateForm } = useFormStore();
 
   const {
     register,
     handleSubmit,
     setValue,
+    setError,
+    clearErrors,
     formState: { errors },
-  } = useForm<AdditionalInfoData>();
+  } = useForm<Data>({
+    defaultValues: {
+      additionalInfo: formData.additionalInfo,
+      additionalInfoToggle: formData.additionalInfoToggle,
+    },
+  });
 
   useEffect(() => {
-    const existingData: AdditionalInfoData = JSON.parse(
-      sessionStorage.getItem("additionalInfo") || "{}"
-    );
-
-    if (existingData.additionalInfo) {
-      setValue("additionalInfo", existingData.additionalInfo);
-      setValue("additionalInfoToggle", existingData.additionalInfoToggle);
+    if (formData.additionalInfo) {
       setAlignment("yes");
       setDisplay("block");
-    } else if (existingData.additionalInfo === "") {
+    } else if (formData.additionalInfo === "") {
       setAlignment("no");
-      setValue("additionalInfoToggle", "no");
-      setValue("additionalInfo", "");
     }
-  }, [setValue]);
+  }, [formData.additionalInfo]);
 
   const handleAlignment = (
     event: React.MouseEvent<HTMLElement>,
@@ -64,14 +60,26 @@ export default function AdditionalInformation() {
     setAlignment(newAlignment);
   };
 
-  const onSubmit = (formData: AdditionalInfoData) => {
+  const onSubmit = (formData: Data) => {
     if (formData.additionalInfo === undefined) {
       formData.additionalInfo = "";
+    }
+    if (
+      formData.additionalInfoToggle === "yes" &&
+      !formData.additionalInfo.trim()
+    ) {
+      return setError("additionalInfo", {
+        type: "required",
+        message: "Please enter additional information",
+      });
     }
     if (formData.additionalInfoToggle === "no") {
       formData.additionalInfo = "";
     }
-    sessionStorage.setItem("additionalInfo", JSON.stringify(formData));
+    updateForm({
+      additionalInfo: formData.additionalInfo,
+      additionalInfoToggle: formData.additionalInfoToggle,
+    });
     router.push("/personal-details");
   };
 
@@ -79,7 +87,7 @@ export default function AdditionalInformation() {
     <Stack alignItems="center" marginTop={5}>
       <ConsultationStepper activeStep={3} useSymptomsSteps />
       <Fade in timeout={300}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
           <Grid
             container
             spacing={2}
@@ -132,6 +140,12 @@ export default function AdditionalInformation() {
                   fullWidth
                   minRows={2}
                   placeholder="Enter additional information"
+                  error={errors.additionalInfo ? true : false}
+                  helperText={
+                    errors.additionalInfo?.type === "required"
+                      ? errors.additionalInfo.message
+                      : null
+                  }
                 />
               </Grid>
             )}

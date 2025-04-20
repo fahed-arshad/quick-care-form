@@ -18,88 +18,20 @@ import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import ConsultationStepper from "../components/ConsultationStepper";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios, { AxiosError } from "axios";
 import { LoadingButton } from "@mui/lab";
+import { AddressData, AddressDataSession, useFormStore } from "../utils/store";
 
-interface FormData {
+interface PostcodeData {
   postcode: string;
   fullAddress: string;
-}
-
-export interface AddressData {
-  DPA: {
-    UPRN: string;
-    UDPRN: string;
-    ADDRESS: string;
-    BUILDING_NUMBER: string;
-    THOROUGHFARE_NAME: string;
-    POST_TOWN: string;
-    POSTCODE: string;
-    RPC: string;
-    X_COORDINATE: number;
-    Y_COORDINATE: number;
-    STATUS: string;
-    LOGICAL_STATUS_CODE: string;
-    CLASSIFICATION_CODE: string;
-    CLASSIFICATION_CODE_DESCRIPTION: string;
-    LOCAL_CUSTODIAN_CODE: 9051;
-    LOCAL_CUSTODIAN_CODE_DESCRIPTION: string;
-    COUNTRY_CODE: string;
-    COUNTRY_CODE_DESCRIPTION: string;
-    POSTAL_ADDRESS_CODE: string;
-    POSTAL_ADDRESS_CODE_DESCRIPTION: string;
-    BLPU_STATE_CODE: string;
-    BLPU_STATE_CODE_DESCRIPTION: string;
-    TOPOGRAPHY_LAYER_TOID: string;
-    WARD_CODE: string;
-    LAST_UPDATE_DATE: string;
-    ENTRY_DATE: string;
-    BLPU_STATE_DATE: string;
-    LANGUAGE: string;
-    MATCH: number;
-    MATCH_DESCRIPTION: string;
-    DELIVERY_POINT_SUFFIX: string;
-  };
-}
-
-export interface AddressDataSession {
-  UPRN: string;
-  UDPRN: string;
-  ADDRESS: string;
-  BUILDING_NUMBER: string;
-  THOROUGHFARE_NAME: string;
-  POST_TOWN: string;
-  POSTCODE: string;
-  RPC: string;
-  X_COORDINATE: number;
-  Y_COORDINATE: number;
-  STATUS: string;
-  LOGICAL_STATUS_CODE: string;
-  CLASSIFICATION_CODE: string;
-  CLASSIFICATION_CODE_DESCRIPTION: string;
-  LOCAL_CUSTODIAN_CODE: 9051;
-  LOCAL_CUSTODIAN_CODE_DESCRIPTION: string;
-  COUNTRY_CODE: string;
-  COUNTRY_CODE_DESCRIPTION: string;
-  POSTAL_ADDRESS_CODE: string;
-  POSTAL_ADDRESS_CODE_DESCRIPTION: string;
-  BLPU_STATE_CODE: string;
-  BLPU_STATE_CODE_DESCRIPTION: string;
-  TOPOGRAPHY_LAYER_TOID: string;
-  WARD_CODE: string;
-  LAST_UPDATE_DATE: string;
-  ENTRY_DATE: string;
-  BLPU_STATE_DATE: string;
-  LANGUAGE: string;
-  MATCH: number;
-  MATCH_DESCRIPTION: string;
-  DELIVERY_POINT_SUFFIX: string;
 }
 
 export default function CheckPostcode() {
   const [loading, setLoading] = useState<boolean>(false);
   const [display, setDisplay] = useState<string>("none");
+  const { updateForm } = useFormStore();
   const [addressOptions, setAddressOptions] = useState<AddressData[]>([]);
   const [open, setOpen] = useState(false);
   const router = useRouter();
@@ -107,19 +39,17 @@ export default function CheckPostcode() {
     register,
     handleSubmit,
     setError,
-    setValue,
+    clearErrors,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<PostcodeData>();
 
-  useEffect(() => {
-    sessionStorage.clear();
-  }, []);
-
-  const onSubmit = async (formData: FormData) => {
+  const onSubmit = async (formData: PostcodeData) => {
     try {
       if (formData.fullAddress) {
-        sessionStorage.clear();
-        sessionStorage.setItem("address", formData.fullAddress);
+        updateForm({
+          postcode: formData.postcode,
+          fullAddress: JSON.parse(formData.fullAddress) as AddressDataSession,
+        });
         return router.push("/describe-symptoms");
       }
       setLoading(true);
@@ -199,6 +129,7 @@ export default function CheckPostcode() {
                 error={errors.postcode ? true : false}
                 onChange={() => {
                   setDisplay("none");
+                  clearErrors();
                 }}
                 helperText={
                   errors.postcode?.type === "pattern"

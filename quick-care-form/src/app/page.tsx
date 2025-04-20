@@ -16,11 +16,13 @@ import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import ConsultationStepper from "./components/ConsultationStepper";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { useFormStore } from "./utils/store";
 
 export default function Home() {
   const theme = useTheme();
   const router = useRouter();
   const { handleSubmit } = useForm();
+  const { resetForm } = useFormStore();
   const [open, setModalOpen] = useState<boolean>(false);
 
   const handleClose = () => {
@@ -28,7 +30,7 @@ export default function Home() {
   };
 
   const onSubmit = () => {
-    sessionStorage.clear();
+    resetForm();
     router.push("/check-postcode");
   };
 

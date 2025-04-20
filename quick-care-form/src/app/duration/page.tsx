@@ -5,46 +5,37 @@ import {
   Typography,
   Button,
   InputLabel,
-  TextField,
   OutlinedInput,
   InputAdornment,
-  ToggleButtonGroup,
-  ToggleButton,
   FormHelperText,
 } from "@mui/material";
 import ConsultationStepper from "../components/ConsultationStepper";
 import { useForm } from "react-hook-form";
 import Grid from "@mui/material/Grid2";
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-
-export interface DurationData {
-  duration: number;
-}
+import { Data, useFormStore } from "../utils/store";
 
 export default function Symptoms() {
   const router = useRouter();
+
+  const { formData, updateForm } = useFormStore();
 
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<DurationData>();
+  } = useForm<Data>({
+    defaultValues: {
+      duration: formData.duration,
+    },
+  });
 
-  useEffect(() => {
-    const existingData: DurationData = JSON.parse(
-      sessionStorage.getItem("duration") || "{}"
-    );
-
-    if (existingData) {
-      setValue("duration", existingData.duration);
-    }
-  }, [setValue]);
-
-  const onSubmit = (formData: DurationData) => {
-    sessionStorage.setItem("duration", JSON.stringify(formData));
+  const onSubmit = (formData: Data) => {
+    updateForm({
+      duration: formData.duration,
+    });
     router.push("/treatments-tried");
   };
   return (
