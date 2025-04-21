@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
       {
         headers: {
           "Content-Type": "application/json",
-          "x-api-key": process.env.BACKEND_API_KEY,
+          "x-api-key": process.env.QUICK_CARE_API_KEY,
         },
       }
     );
