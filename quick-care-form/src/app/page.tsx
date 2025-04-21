@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import DataPrivacyModal from "./components/DataPrivacyModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import ConsultationStepper from "./components/ConsultationStepper";
 import { useForm } from "react-hook-form";
@@ -19,11 +19,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useFormStore } from "./utils/store";
 import { usePharmacyStore } from "./utils/pharmacyStore";
 
-export default function Home({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | undefined }>;
-}) {
+export default function Home() {
   const theme = useTheme();
   const router = useRouter();
   const { handleSubmit } = useForm();
@@ -31,7 +27,6 @@ export default function Home({
   const {
     data: { token },
     updatePharmacy,
-    resetPharmacy,
   } = usePharmacyStore();
   const [open, setModalOpen] = useState<boolean>(false);
 
@@ -39,16 +34,20 @@ export default function Home({
     setModalOpen(false);
   };
 
+  useEffect(() => {
+    if (process.env.NEXT_PUBLIC_CHANNEL === "Online") {
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = urlParams.get("token");
+      if (token) {
+        updatePharmacy({ token });
+      } else {
+        router.push("/login");
+      }
+    }
+  }, [updatePharmacy, router]);
+
   const onSubmit = async () => {
     resetForm();
-    if (process.env.NEXT_PUBLIC_CHANNEL === "Online") {
-      resetPharmacy();
-      const tokenParam = (await searchParams).token;
-      updatePharmacy({
-        token: tokenParam || undefined,
-      });
-      return router.push(`check-postcode?token=${tokenParam}`);
-    }
     return router.push(`check-postcode?token=${token}`);
   };
 
