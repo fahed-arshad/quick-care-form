@@ -19,7 +19,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useFormStore } from "./utils/store";
 import { usePharmacyStore } from "./utils/pharmacyStore";
 
-export default function Home() {
+export default function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | undefined }>;
+}) {
   const theme = useTheme();
   const router = useRouter();
   const { handleSubmit } = useForm();
@@ -27,6 +31,7 @@ export default function Home() {
   const {
     data: { token },
     updatePharmacy,
+    resetPharmacy,
   } = usePharmacyStore();
   const [open, setModalOpen] = useState<boolean>(false);
 
@@ -34,18 +39,17 @@ export default function Home() {
     setModalOpen(false);
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     resetForm();
-    if (!token && process.env.NEXT_PUBLIC_CHANNEL === "Online") {
-      const searchParams = useSearchParams();
-
-      const tokenParam = searchParams.get("token");
+    if (process.env.NEXT_PUBLIC_CHANNEL === "Online") {
+      resetPharmacy();
+      const tokenParam = (await searchParams).token;
       updatePharmacy({
         token: tokenParam || undefined,
       });
-      return;
+      return router.push(`check-postcode?token=${tokenParam}`);
     }
-    router.push(`check-postcode?token=${token}`);
+    return router.push(`check-postcode?token=${token}`);
   };
 
   return (
@@ -77,7 +81,7 @@ export default function Home() {
                 textAlign="center"
                 sx={{
                   [theme.breakpoints.down("sm")]: {
-                    fontSize: 24,
+                    fontSize: 20,
                   },
                 }}
               >
