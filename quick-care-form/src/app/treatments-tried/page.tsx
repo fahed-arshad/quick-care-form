@@ -18,6 +18,7 @@ import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Data, useFormStore } from "../utils/store";
+import { usePharmacyStore } from "../utils/pharmacyStore";
 
 export interface TreatmentsTriedData {
   experiencedSymptomsBefore: string;
@@ -30,6 +31,9 @@ export default function Symptoms() {
   const [display, setDisplay] = useState<string>("none");
 
   const { formData, updateForm } = useFormStore();
+  const {
+    data: { token },
+  } = usePharmacyStore();
 
   const {
     register,
@@ -86,7 +90,7 @@ export default function Symptoms() {
       experiencedSymptomsBefore: formData.experiencedSymptomsBefore,
       previousSymptomsDetails: formData.previousSymptomsDetails,
     });
-    router.push("/additional-information");
+    router.push(`/additional-information?token=${token}`);
   };
   return (
     <Stack alignItems="center" marginTop={5} marginBottom={10}>
@@ -178,7 +182,7 @@ export default function Symptoms() {
                     ":hover": { backgroundColor: "white" },
                   }}
                   onClick={() => {
-                    router.push("/duration");
+                    router.push(`/duration?token=${token}`);
                   }}
                 >
                   Previous

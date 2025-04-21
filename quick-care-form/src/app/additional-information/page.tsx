@@ -17,12 +17,16 @@ import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Data, useFormStore } from "../utils/store";
+import { usePharmacyStore } from "../utils/pharmacyStore";
 
 export default function AdditionalInformation() {
   const router = useRouter();
   const [alignment, setAlignment] = useState<string | null>(null);
   const [display, setDisplay] = useState<string>("hidden");
   const { formData, updateForm } = useFormStore();
+  const {
+    data: { token },
+  } = usePharmacyStore();
 
   const {
     register,
@@ -80,7 +84,7 @@ export default function AdditionalInformation() {
       additionalInfo: formData.additionalInfo,
       additionalInfoToggle: formData.additionalInfoToggle,
     });
-    router.push("/personal-details");
+    router.push(`/personal-details?token=${token}`);
   };
 
   return (
@@ -175,7 +179,7 @@ export default function AdditionalInformation() {
                     ":hover": { backgroundColor: "white" },
                   }}
                   onClick={() => {
-                    router.push("/treatments-tried");
+                    router.push(`/treatments-tried?token=${token}`);
                   }}
                 >
                   Previous

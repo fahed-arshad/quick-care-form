@@ -22,6 +22,7 @@ import { useState } from "react";
 import axios, { AxiosError } from "axios";
 import { LoadingButton } from "@mui/lab";
 import { AddressData, AddressDataSession, useFormStore } from "../utils/store";
+import { usePharmacyStore } from "../utils/pharmacyStore";
 
 interface PostcodeData {
   postcode: string;
@@ -32,6 +33,9 @@ export default function CheckPostcode() {
   const [loading, setLoading] = useState<boolean>(false);
   const [display, setDisplay] = useState<string>("none");
   const { updateForm } = useFormStore();
+  const {
+    data: { token },
+  } = usePharmacyStore();
   const [addressOptions, setAddressOptions] = useState<AddressData[]>([]);
   const [open, setOpen] = useState(false);
   const router = useRouter();
@@ -50,7 +54,7 @@ export default function CheckPostcode() {
           postcode: formData.postcode,
           fullAddress: JSON.parse(formData.fullAddress) as AddressDataSession,
         });
-        return router.push("/describe-symptoms");
+        return router.push(`/describe-symptoms?token=${token}`);
       }
       setLoading(true);
       try {
@@ -220,7 +224,7 @@ export default function CheckPostcode() {
                     ":hover": { backgroundColor: "white" },
                   }}
                   onClick={() => {
-                    router.push("/");
+                    router.push(`/?token=${token}`);
                   }}
                 >
                   Previous

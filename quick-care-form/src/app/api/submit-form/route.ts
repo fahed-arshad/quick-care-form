@@ -22,6 +22,7 @@ interface RequestBody {
   dateOfBirth: string;
   sex: string;
   channel: string;
+  token: string;
 }
 
 export async function POST(req: NextRequest) {
@@ -46,6 +47,7 @@ export async function POST(req: NextRequest) {
       dateOfBirth,
       sex,
       channel,
+      token,
     } = (await req.json()) as RequestBody;
 
     const form = new FormData();
@@ -69,7 +71,7 @@ export async function POST(req: NextRequest) {
     form.append("sex", sex);
     form.append("submittedAt", new Date().toISOString());
     form.append("channel", channel);
-    form.append("pharmacyId", "1");
+    form.append("token", token);
 
     const response = await pharmaPalInstance.post("/chat/form", form, {
       headers: {

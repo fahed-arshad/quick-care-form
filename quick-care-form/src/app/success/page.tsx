@@ -7,6 +7,7 @@ import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useFormStore } from "../utils/store";
+import { usePharmacyStore } from "../utils/pharmacyStore";
 
 declare global {
   interface Window {
@@ -18,12 +19,14 @@ export default function Success() {
   const router = useRouter();
   const theme = useTheme();
   const { resetForm } = useFormStore();
+  const {
+    data: { token },
+  } = usePharmacyStore();
   const { handleSubmit } = useForm();
 
   const onSubmit = () => {
     resetForm();
-    localStorage.clear();
-    router.push("/");
+    router.push(`/?token=${token}`);
   };
 
   useEffect(() => {
@@ -34,8 +37,7 @@ export default function Success() {
     if (process.env.NEXT_PUBLIC_CHANNEL !== "Online") {
       const timer = setTimeout(() => {
         resetForm();
-        localStorage.clear();
-        router.push("/");
+        router.push(`/?token=${token}`);
       }, 60000);
       return () => clearTimeout(timer);
     }

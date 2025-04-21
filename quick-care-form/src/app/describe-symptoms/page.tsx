@@ -6,10 +6,14 @@ import Grid from "@mui/material/Grid2";
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import { useRouter } from "next/navigation";
 import { Data, useFormStore } from "../utils/store";
+import { usePharmacyStore } from "../utils/pharmacyStore";
 
 export default function Symptoms() {
   const router = useRouter();
   const { formData, updateForm } = useFormStore();
+  const {
+    data: { token },
+  } = usePharmacyStore();
 
   const {
     register,
@@ -25,7 +29,7 @@ export default function Symptoms() {
     updateForm({
       symptoms: formData.symptoms.trim(),
     });
-    router.push("/duration");
+    router.push(`/duration?token=${token}`);
   };
   return (
     <Stack alignItems="center" marginTop={5} marginBottom={10}>
@@ -87,7 +91,7 @@ export default function Symptoms() {
                     ":hover": { backgroundColor: "white" },
                   }}
                   onClick={() => {
-                    router.push("/check-postcode");
+                    router.push(`/check-postcode?token=${token}`);
                   }}
                 >
                   Previous

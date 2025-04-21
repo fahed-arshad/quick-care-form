@@ -22,6 +22,7 @@ import { GpSurgery } from "./page";
 import { filterOptions } from "./helpers/filterOptions";
 import { LoadingButton } from "@mui/lab";
 import { Data, useFormStore } from "../utils/store";
+import { usePharmacyStore } from "../utils/pharmacyStore";
 
 export default function ContactForm({
   gpSurgeries,
@@ -32,6 +33,9 @@ export default function ContactForm({
   const [selectedGp, setSelectedGp] = useState<GpSurgery | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const { formData, updateForm, resetForm } = useFormStore();
+  const {
+    data: { token },
+  } = usePharmacyStore();
   const {
     register,
     handleSubmit,
@@ -88,13 +92,14 @@ export default function ContactForm({
         surname,
         dateOfBirth,
         sex,
+        token,
         channel: process.env.NEXT_PUBLIC_CHANNEL
           ? process.env.NEXT_PUBLIC_CHANNEL
           : "Kiosk",
       });
-      resetForm();
-      localStorage.clear();
-      router.push("/success");
+      // resetForm();
+      // localStorage.clear();
+      router.push(`/success?token=${token}`);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -247,7 +252,7 @@ export default function ContactForm({
                     ":hover": { backgroundColor: "white" },
                   }}
                   onClick={() => {
-                    router.push("/personal-details");
+                    router.push(`/personal-details?token=${token}`);
                   }}
                 >
                   Previous

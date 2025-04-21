@@ -17,12 +17,16 @@ import ConsultationStepper from "./components/ConsultationStepper";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useFormStore } from "./utils/store";
+import { usePharmacyStore } from "./utils/pharmacyStore";
 
 export default function Home() {
   const theme = useTheme();
   const router = useRouter();
   const { handleSubmit } = useForm();
   const { resetForm } = useFormStore();
+  const {
+    data: { token },
+  } = usePharmacyStore();
   const [open, setModalOpen] = useState<boolean>(false);
 
   const handleClose = () => {
@@ -31,7 +35,7 @@ export default function Home() {
 
   const onSubmit = () => {
     resetForm();
-    router.push("/check-postcode");
+    router.push(`check-postcode?token=${token}`);
   };
 
   return (

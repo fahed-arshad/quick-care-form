@@ -18,6 +18,7 @@ import Grid from "@mui/material/Grid2";
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { usePharmacyStore } from "../utils/pharmacyStore";
 
 export interface SymptomData {
   symptoms: string;
@@ -37,6 +38,10 @@ export default function Symptoms() {
     setValue,
     formState: { errors },
   } = useForm<SymptomData>();
+
+  const {
+    data: { token },
+  } = usePharmacyStore();
 
   useEffect(() => {
     const existingData: SymptomData = JSON.parse(
@@ -82,7 +87,7 @@ export default function Symptoms() {
         formData.previousSymptomsDetails.trim();
     }
     sessionStorage.setItem("symptoms", JSON.stringify(formData));
-    router.push("/additional-information");
+    router.push(`/additional-information?token=${token}`);
   };
   return (
     <Stack alignItems="center" marginTop={5} marginBottom={10}>
@@ -213,7 +218,7 @@ export default function Symptoms() {
                     ":hover": { backgroundColor: "white" },
                   }}
                   onClick={() => {
-                    router.push("/check-postcode");
+                    router.push(`/check-postcode?token=${token}`);
                   }}
                 >
                   Previous

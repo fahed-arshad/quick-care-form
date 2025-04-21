@@ -4,6 +4,7 @@ import { ThemeProvider } from "@emotion/react";
 import { theme } from "./theme/theme";
 import { dmSans } from "./theme/font";
 import Script from "next/script";
+import Login from "./login/page";
 
 export default function RootLayout({
   children,

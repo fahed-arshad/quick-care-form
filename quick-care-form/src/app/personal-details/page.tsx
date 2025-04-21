@@ -21,6 +21,7 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { format, parseISO } from "date-fns";
 import { Data, useFormStore } from "../utils/store";
+import { usePharmacyStore } from "../utils/pharmacyStore";
 
 export interface PersonalDetailsData {
   forenames: string;
@@ -34,6 +35,9 @@ export default function PersonalDetails() {
   const theme = useTheme();
 
   const { formData, updateForm } = useFormStore();
+  const {
+    data: { token },
+  } = usePharmacyStore();
 
   const {
     register,
@@ -92,7 +96,7 @@ export default function PersonalDetails() {
         : undefined,
       sex: formData.sex,
     });
-    router.push("/contact");
+    router.push(`/contact?token=${token}`);
   };
 
   return (
@@ -215,7 +219,7 @@ export default function PersonalDetails() {
                       ":hover": { backgroundColor: "white" },
                     }}
                     onClick={() => {
-                      router.push("/additional-information");
+                      router.push(`/additional-information?token=${token}`);
                     }}
                   >
                     Previous
