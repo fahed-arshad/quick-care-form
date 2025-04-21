@@ -15,7 +15,7 @@ import { useState } from "react";
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import ConsultationStepper from "./components/ConsultationStepper";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useFormStore } from "./utils/store";
 import { usePharmacyStore } from "./utils/pharmacyStore";
 
@@ -26,6 +26,7 @@ export default function Home() {
   const { resetForm } = useFormStore();
   const {
     data: { token },
+    updatePharmacy,
   } = usePharmacyStore();
   const [open, setModalOpen] = useState<boolean>(false);
 
@@ -35,6 +36,15 @@ export default function Home() {
 
   const onSubmit = () => {
     resetForm();
+    if (!token && process.env.NEXT_PUBLIC_CHANNEL === "Online") {
+      const searchParams = useSearchParams();
+
+      const tokenParam = searchParams.get("token");
+      updatePharmacy({
+        token: tokenParam || undefined,
+      });
+      return;
+    }
     router.push(`check-postcode?token=${token}`);
   };
 
