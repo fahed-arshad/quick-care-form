@@ -43,11 +43,14 @@ export default function AdditionalInformation() {
   });
 
   useEffect(() => {
-    if (formData.additionalInfo) {
+    if (formData.additionalInfoToggle === "yes") {
       setAlignment("yes");
       setDisplay("block");
-    } else if (formData.additionalInfo === "") {
+    } else if (formData.additionalInfoToggle === "no") {
       setAlignment("no");
+    } else {
+      setDisplay("none");
+      setAlignment(null);
     }
   }, [formData.additionalInfo]);
 
