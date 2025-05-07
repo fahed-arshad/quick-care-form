@@ -21,10 +21,17 @@ export interface Data {
   remoteExemption: boolean;
 }
 
-interface FormStore {
+export interface FormStore {
   formData: Data;
   updateForm: (values: Partial<Data>) => void;
   resetForm: () => void;
+}
+
+export interface FileStore {
+  files: File[];
+  fileToggle: boolean;
+  setFiles: (fileData: File[]) => void;
+  removeFile: (index: number) => void;
 }
 
 const initialData = {
@@ -61,6 +68,23 @@ export const useFormStore = create<FormStore>()(
     }),
     {
       name: "form",
+    }
+  )
+);
+
+export const useFileStore = create<FileStore>()(
+  persist(
+    (set) => ({
+      files: [],
+      fileToggle: false,
+      setFiles: (newFiles) => set(() => ({ files: newFiles })),
+      removeFile: (index) =>
+        set((state) => ({
+          files: state.files.filter((_, i) => i !== index),
+        })),
+    }),
+    {
+      name: "files",
     }
   )
 );

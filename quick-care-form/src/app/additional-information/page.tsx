@@ -52,7 +52,7 @@ export default function AdditionalInformation() {
       setDisplay("none");
       setAlignment(null);
     }
-  }, [formData.additionalInfo]);
+  }, [formData.additionalInfoToggle]);
 
   const handleAlignment = (
     event: React.MouseEvent<HTMLElement>,
@@ -87,7 +87,10 @@ export default function AdditionalInformation() {
       additionalInfo: formData.additionalInfo,
       additionalInfoToggle: formData.additionalInfoToggle,
     });
-    router.push(`/personal-details?token=${token}`);
+    if (process.env.NEXT_PUBLIC_CHANNEL) {
+      return router.push(`/upload-image?token=${token}`);
+    }
+    return router.push(`/personal-details?token=${token}`);
   };
 
   return (
