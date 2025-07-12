@@ -1,6 +1,7 @@
 import { createTheme } from "@mui/material";
 import type {} from "@mui/lab/themeAugmentation";
-import { dmSans, saira } from "./font";
+import { dmSans, gilroy, openSans } from "./font";
+import { PaletteOptions } from "@mui/material/styles";
 
 declare module "@mui/material/styles" {
   interface Palette {
@@ -12,33 +13,67 @@ declare module "@mui/material/styles" {
   }
 }
 
+const quickCarePalette: PaletteOptions = {
+  appBar: {
+    main: "#FFFFFF",
+  },
+  primary: {
+    main: "#01081B",
+  },
+  secondary: {
+    main: "#2E68FD",
+  },
+  text: {
+    primary: "#303133",
+  },
+};
+
+const wellPalette: PaletteOptions = {
+  appBar: {
+    main: "#FFFFFF",
+  },
+  primary: {
+    main: "#014c6b",
+  },
+  secondary: {
+    main: "#cfebf6",
+  },
+  text: {
+    primary: "#014c6b",
+  },
+};
+
+const superdrugPalette: PaletteOptions = {
+  appBar: {
+    main: "#FFFFFF",
+  },
+  primary: {
+    main: "#121111",
+  },
+  secondary: {
+    main: "#ee008e",
+  },
+  text: {
+    primary: "#121111",
+  },
+};
+
 // Step 1: Create a base theme
 const baseTheme = createTheme({
   spacing: 8,
-  palette: {
-    appBar: {
-      main: "#FFFFFF",
-    },
-    primary: {
-      main: "#01081B",
-    },
-    secondary: {
-      main: "#2E68FD",
-    },
-    text: {
-      primary: "#303133",
-    },
-  },
-  typography: {
-    fontFamily: dmSans.style.fontFamily,
-  },
+  palette:
+    process.env.NEXT_PUBLIC_WELL_PHARMACY === "true"
+      ? wellPalette
+      : process.env.NEXT_PUBLIC_SUPERDRUG_PHARMACY === "true"
+      ? superdrugPalette
+      : quickCarePalette,
 });
 
 // Step 2: Create the final theme using the base theme
-export const theme = createTheme({
+const quickCareTheme = createTheme({
   ...baseTheme,
   typography: {
-    ...baseTheme.typography,
+    fontFamily: dmSans.style.fontFamily,
     h2: {
       [baseTheme.breakpoints.down("sm")]: {
         fontSize: "2.5rem",
@@ -77,6 +112,7 @@ export const theme = createTheme({
         root: {
           fontSize: "24px",
           textTransform: "none",
+          border: `1px solid ${baseTheme.palette.primary.main}`,
           borderRadius: "100px",
           ":hover": {
             backgroundColor: baseTheme.palette.secondary.main,
@@ -173,3 +209,84 @@ export const theme = createTheme({
     },
   },
 });
+
+const wellTheme = createTheme({
+  ...baseTheme,
+  ...quickCareTheme,
+  typography: {
+    fontFamily: gilroy.style.fontFamily,
+  },
+  components: {
+    ...quickCareTheme.components,
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          fontSize: "24px",
+          textTransform: "none",
+          border: `1px solid ${baseTheme.palette.primary.main}`,
+          borderRadius: "100px",
+          ":hover": {
+            border: `1px solid ${baseTheme.palette.primary.main}`,
+            backgroundColor: baseTheme.palette.secondary.main,
+            color: baseTheme.palette.primary.main,
+          },
+          ":active": {
+            backgroundColor: baseTheme.palette.primary.main,
+            color: baseTheme.palette.appBar.main,
+          },
+        },
+        outlined: {
+          ":active": {
+            color: baseTheme.palette.primary.main,
+          },
+        },
+      },
+    },
+  },
+});
+
+const superdrugTheme = createTheme({
+  ...baseTheme,
+  ...quickCareTheme,
+  typography: {
+    fontFamily: openSans.style.fontFamily,
+  },
+  components: {
+    ...quickCareTheme.components,
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          fontSize: "24px",
+          textTransform: "none",
+          border: `1px solid ${baseTheme.palette.secondary.main}`,
+          backgroundColor: baseTheme.palette.secondary.main,
+          borderRadius: "3px",
+          ":hover": {
+            border: `1px solid ${baseTheme.palette.primary.main}`,
+            backgroundColor: baseTheme.palette.primary.main,
+            color: baseTheme.palette.appBar.main,
+          },
+          ":active": {
+            backgroundColor: baseTheme.palette.primary.main,
+            color: baseTheme.palette.appBar.main,
+          },
+        },
+        outlined: {
+          border: `1px solid ${baseTheme.palette.primary.main}`,
+          ":hover": {
+            color: baseTheme.palette.primary.main,
+          },
+        },
+      },
+    },
+  },
+});
+
+const themeToExport =
+  process.env.NEXT_PUBLIC_WELL_PHARMACY === "true"
+    ? wellTheme
+    : process.env.NEXT_PUBLIC_SUPERDRUG_PHARMACY === "true"
+    ? superdrugTheme
+    : quickCareTheme;
+
+export default themeToExport;

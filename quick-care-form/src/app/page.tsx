@@ -3,6 +3,7 @@
 import {
   Box,
   Button,
+  Divider,
   Fade,
   Link,
   Stack,
@@ -62,17 +63,43 @@ export default function Home() {
             justifyContent="center"
             sx={{
               padding: { xs: 2, sm: 6 },
-              marginTop: { xs: 0, sm: 10, md: 1 },
+              marginTop: { xs: 0, sm: 0, md: 1 },
             }}
           >
             <Grid size={{ xs: 12 }} display="flex" justifyContent="center">
-              <Box
-                component="img"
-                src="https://quickcaredemo.s3.eu-west-2.amazonaws.com/QuickCare+LOGO.png"
-                alt="Quick Care logo"
-                width={600}
-                sx={{ [theme.breakpoints.down("sm")]: { width: 375 } }}
-              />
+              {process.env.NEXT_PUBLIC_WELL_PHARMACY === "true" ? (
+                <Stack alignItems="center" direction="column" gap={2}>
+                  <Box
+                    component="img"
+                    src="https://cdn11.bigcommerce.com/s-zbz0dr3ysm/stencil/2eddb9b0-21a3-013e-e4ac-22448c2cf10e/e/2e51a620-0381-013c-1bdc-022b92701f73/icons/logo-well-hale.svg"
+                    alt="Well Pharmacy logo"
+                    width={273}
+                    sx={{
+                      [theme.breakpoints.down("sm")]: { width: 180 },
+                    }}
+                  />
+                </Stack>
+              ) : process.env.NEXT_PUBLIC_SUPERDRUG_PHARMACY === "true" ? (
+                <Stack alignItems="center" direction="column" gap={2}>
+                  <Box
+                    component="img"
+                    src="https://imgur.com/TN3jFXD.png"
+                    alt="Superdrug Pharmacy logo"
+                    width={273}
+                    sx={{
+                      [theme.breakpoints.down("sm")]: { width: 180 },
+                    }}
+                  />
+                </Stack>
+              ) : (
+                <Box
+                  component="img"
+                  src="https://quickcaredemo.s3.eu-west-2.amazonaws.com/QuickCare+LOGO.png"
+                  alt="Quick Care logo"
+                  width={600}
+                  sx={{ [theme.breakpoints.down("sm")]: { width: 375 } }}
+                />
+              )}
             </Grid>
             <Grid size={{ xs: 12 }}>
               <Typography

@@ -18,8 +18,6 @@ import Grid from "@mui/material/Grid2";
 import { useState } from "react";
 import { TextField, InputLabel, FormHelperText } from "@mui/material";
 import axios, { isAxiosError } from "axios";
-import { useFormStore } from "../utils/store";
-import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import ConsultationStepper from "../components/ConsultationStepper";

@@ -1,8 +1,8 @@
 "use client";
 import "./globals.css";
 import { ThemeProvider } from "@emotion/react";
-import { theme } from "./theme/theme";
-import { dmSans } from "./theme/font";
+import theme from "./theme/theme";
+import { dmSans, gilroy, openSans } from "./theme/font";
 import Script from "next/script";
 import Login from "./login/page";
 
@@ -11,6 +11,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const defaultFont =
+    process.env.NEXT_PUBLIC_WELL_PHARMACY === "true"
+      ? gilroy
+      : process.env.NEXT_PUBLIC_SUPERDRUG_PHARMACY === "true"
+      ? openSans
+      : dmSans;
+
+  const backgroundColor =
+    process.env.NEXT_PUBLIC_WELL_PHARMACY === "true" ||
+    process.env.NEXT_PUBLIC_SUPERDRUG_PHARMACY === "true"
+      ? "#FFFFFF"
+      : "#edf1ed";
+
   return (
     <html lang="en">
       <head>
@@ -34,7 +47,12 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={dmSans.className} style={{ backgroundColor: "#edf1ed" }}>
+      <body
+        className={defaultFont.className}
+        style={{
+          backgroundColor,
+        }}
+      >
         <ThemeProvider theme={theme}>{children}</ThemeProvider>
       </body>
     </html>
