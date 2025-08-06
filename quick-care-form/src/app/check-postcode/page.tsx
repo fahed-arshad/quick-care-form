@@ -18,7 +18,7 @@ import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import ConsultationStepper from "../components/ConsultationStepper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import { LoadingButton } from "@mui/lab";
 import { AddressData, AddressDataSession, useFormStore } from "../utils/store";
@@ -35,6 +35,7 @@ export default function CheckPostcode() {
   const { updateForm } = useFormStore();
   const {
     data: { token },
+    updatePharmacy,
   } = usePharmacyStore();
   const [addressOptions, setAddressOptions] = useState<AddressData[]>([]);
   const [open, setOpen] = useState(false);
@@ -46,6 +47,18 @@ export default function CheckPostcode() {
     clearErrors,
     formState: { errors },
   } = useForm<PostcodeData>();
+
+  useEffect(() => {
+    if (process.env.NEXT_PUBLIC_CHANNEL === "Online") {
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = urlParams.get("token");
+      if (token) {
+        updatePharmacy({ token });
+      } else {
+        router.push("/login");
+      }
+    }
+  }, [updatePharmacy, router]);
 
   const onSubmit = async (formData: PostcodeData) => {
     try {
