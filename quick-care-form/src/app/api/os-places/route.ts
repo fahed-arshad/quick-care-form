@@ -13,10 +13,10 @@ export async function POST(req: NextRequest) {
       "https://api.os.uk/search/places/v1/postcode",
       {
         params: {
-          key: process.env.NEXT_PUBLIC_OS_PLACES_API_KEY,
+          key: process.env.OS_PLACES_API_KEY,
           postcode: postcode.trim(),
         },
-      }
+      },
     );
 
     return NextResponse.json(response.data.results);
